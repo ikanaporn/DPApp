@@ -15,8 +15,8 @@ import {
 import * as MediaLibrary from 'expo-media-library';
 import { DeviceMotion } from "expo-sensors";
 import { Camera } from "expo-camera";
+//import { BlurView } from "@react-native-community/blur";
 import { BlurView } from "expo-blur";
-
 import * as FaceDetector from "expo-face-detector";
 import * as Permissions from "expo-permissions";
 
@@ -322,8 +322,8 @@ class VideoPage extends React.Component {
     onFinish = () => {
         this.setState({
             disabledTouchableOpacityNext: false,
-            //disabledTouchableOpacityStart: true,
-            //disabledTouchableOpacityStop: true
+            disabledTouchableOpacityStart: true,
+            disabledTouchableOpacityStop: true
         });
     };
 
@@ -630,6 +630,7 @@ class VideoPage extends React.Component {
 
                         {this.state.faceDetected ? (
                             <BlurView
+                            
                                 intensity={100}
                                 style={[StyleSheet.absoluteFill]}
                                 key={this.state.faceID}
@@ -638,7 +639,7 @@ class VideoPage extends React.Component {
                                     { rotateZ: `${this.state.rollAngle}deg` },
                                     { rotateY: `${this.state.yawAngle}deg` },
                                 ]}
-                                style={[
+                                style={[[StyleSheet.absoluteFill],
                                     styles.face,
                                     {
                                         ...this.state.bounds.size,
