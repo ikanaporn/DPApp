@@ -4,7 +4,7 @@
     "slug": "newDP4",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,6 +21,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "android": {
+     
+      "permissions": [
+        "READ_EXTERNAL_STORAGE", 
+        "WRITE_EXTERNAL_STORAGE",
+         "CAMERA",
+        "CAMERA_ROLL",
+         "AUDIO_RECORDING"
+       
+      ]
+    
     }
   }
 }
