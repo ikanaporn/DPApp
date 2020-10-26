@@ -6,26 +6,15 @@ import {
     StyleSheet,
     ScrollView,
     Dimensions,
-    Image,
 } from 'react-native';
 import {
+    bar,
     color1,
     NavigationName,
 } from '../constants';
 import { listUser } from '../server/server';
 
 const win_height = Dimensions.get('window').height;
-
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 20,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 
 class ListVolunteerPage extends React.Component {
     constructor(props) {
@@ -96,20 +85,13 @@ export const styles = StyleSheet.create({
         backgroundColor: color1[0],
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
     },
     box: {
         height: "90%",
         width: "100%",
         backgroundColor: "white",
         flexDirection: 'column',
-    },
-    boxTitle: {
-        height: "10%",
-        width: "100%",
-        marginTop: 20,
-        justifyContent: 'center',
-        fontWeight: 'bold',
     },
     button: {
         backgroundColor: color1[1],
@@ -127,11 +109,6 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         textAlign: "center",
-    },
-    contentText: {
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold',
     },
 });
 

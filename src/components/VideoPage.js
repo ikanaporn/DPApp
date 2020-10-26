@@ -38,7 +38,7 @@ import * as FileSystem from 'expo-file-system';
 import { YellowBox } from "react-native";
 import _ from "lodash";
 import { throwIfAudioIsDisabled } from "expo-av/build/Audio/AudioAvailability";
-import color1 from "../constants"
+import { bar, } from "../constants"
 import ProgressBar from './ProgressBar';
 import { initialState, color_ProgreesBar } from './QuestionInitialState';
 
@@ -51,17 +51,6 @@ console.warn = (message) => {
 };
 //const [recording, setRecording] = useState(false)
 const win_height = Dimensions.get('window').height;
-
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 10,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 var ReducerName = 'VideoReducer';
 
 class VideoPage extends React.Component {
@@ -536,7 +525,7 @@ class VideoPage extends React.Component {
                                         </View>
                                     </View> :
                                     (this.props.VideoReducer.command_num == 2 ? (
-                                        <View style={{ flex: 1 }}>
+                                        <View style={{ flex: 1, justifyContent: 'center' }}>
                                             {this.state.isScrollable ? bar : null}
                                             <ScrollView style={{ flex: 1, padding: 20, width: '100%' }}
                                                 onContentSizeChange={(width, height) => {

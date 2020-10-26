@@ -1,31 +1,20 @@
 import React from 'react';
 import {
+    Dimensions,
     Text,
     TouchableOpacity,
     View,
     StyleSheet,
     ScrollView,
-    Dimensions,
-    Image,
 } from 'react-native';
 import {
+    bar,
     color1,
     NavigationName,
 } from '../constants';
 import { listUser } from '../server/server';
 
 const win_height = Dimensions.get('window').height;
-
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 10,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 
 class ListAdminPage extends React.Component {
     constructor(props) {
@@ -139,11 +128,6 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         textAlign: "center",
-    },
-    contentText: {
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold',
     },
 });
 

@@ -13,7 +13,10 @@ import {
 import { Autocomplete } from "react-native-dropdown-autocomplete";
 import DatePicker from 'react-native-datepicker';
 
-import { color1 } from '../constants';
+import {
+    bar,
+    color1,
+} from '../constants';
 import { styles } from '../css';
 import { initialState } from './QuestionInitialState';
 import { writeUserData, getQuestion, getQuestionnaire, removeQuestion } from '../server/server';
@@ -23,17 +26,6 @@ const button_back_text = 'ย้อนกลับ';
 const button_hexcode = color1[0];
 const button_selected_hexcode = color1[1];
 const win_height = Dimensions.get('window').height;
-
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 20,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 
 export default class Questionnaire extends Component {
     async getData(props, Reducer, ReducerName) {
@@ -601,7 +593,7 @@ export default class Questionnaire extends Component {
                 alignItems: 'center',
                 justifyContent: 'center',
             }]}>
-                <View style={[styles.box2]}>
+                <View style={[styles.box2, { justifyContent: 'center' }]}>
                     {this.state.isScrollable ? bar : null}
                     <Text style={styles.contentText}>
                         {Reducer.question.question}
