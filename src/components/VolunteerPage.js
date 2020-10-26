@@ -1,18 +1,15 @@
 import React from 'react';
 import {
-    Text,
     TouchableOpacity,
     View,
     StyleSheet,
+    Image,
+    Text,
 } from 'react-native';
 import {
     color1,
-
-
     NavigationName,
 } from '../constants';
-import { Card } from "react-native-elements";
-
 
 class VolunteerPage extends React.Component {
     render() {
@@ -20,94 +17,79 @@ class VolunteerPage extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-
-                <TouchableOpacity style={{height:'14%'}}
-                   onPress={() => {
-                    this.props.navigation.navigate(NavigationName.BasicQuestion, {
-                        volunteer: this.props.route.params.volunteer,
-                    })
-                }}
-                >
-                <Card containerStyle={styles.cardBg}>
-                    <View style={{ height:'100%'}}>
-                        <View style={{flex:1}}>
-                            <Card.Image
+                    <View style={{ flex: 0.4, flexDirection: 'row' }}>
+                        <TouchableOpacity style={[styles.button, {},]}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.BasicQuestion, {
+                                    volunteer: this.props.route.params.volunteer,
+                                })
+                            }}
+                        >
+                            <Image
                                 source={require("../../assets/img/info.png")}
-                                resizeMode="contain"
+                                resizeMode="center"
+                                style={{ flex: 1, height: '110%' }}
                             />
-                        </View>
-                        {/* <Text style={styles.buttonText}>ข้อมูลพื้นฐาน</Text> */}
-                    </View>
-                    
-                </Card>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{height:'14%',marginTop: '20%'}}
-                   onPress={() => {
-                    this.props.navigation.navigate(NavigationName.HamiltonQuestion, {
-                        volunteer: this.props.route.params.volunteer,
-                    })
-                }}
-                >
-                <Card containerStyle={styles.cardBg}>
-                    <View style={{ height:'100%'}}>
-                        <View style={{flex:1}}>
-                            <Card.Image
+                            <Text>ข้อมูลพื้นฐาน</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, {},]}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.HamiltonQuestion, {
+                                    volunteer: this.props.route.params.volunteer,
+                                })
+                            }}
+                        >
+                            <Image
                                 source={require("../../assets/img/hamilton.png")}
                                 resizeMode="contain"
+                                style={{ flex: 1 }}
                             />
-                        </View>
-                        {/* <Text style={styles.buttonText}>แบบวัด HAMILTON</Text> */}
+                            <Text>แบบวัด HAMILTON</Text>
+                        </TouchableOpacity>
                     </View>
-                    
-                </Card>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{height:'14%',marginTop: '20%'}}
-                   onPress={() => {
-                    this.props.navigation.navigate(NavigationName.PHQ9Question, {
-                        volunteer: this.props.route.params.volunteer,
-                    })
-                }}
-                >
-                <Card containerStyle={styles.cardBg}>
-                    <View style={{ height:'100%'}}>
-                        <View style={{flex:1}}>
-                            <Card.Image
+                    <View style={{ flex: 0.4, flexDirection: 'row' }}>
+                        <TouchableOpacity style={[styles.button, {},]}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.PHQ9Question, {
+                                    volunteer: this.props.route.params.volunteer,
+                                })
+                            }}
+                        >
+                            <Image
                                 source={require("../../assets/img/phq9.png")}
                                 resizeMode="contain"
+                                style={{ flex: 1 }}
                             />
-                        </View>
-                        {/* <Text style={styles.buttonText}>แบบประเมิน PHQ9</Text> */}
-                    </View>
-                    
-                </Card>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{height:'14%',marginTop: '20%'}}
-                   onPress={() => {
-                    this.props.navigation.navigate(NavigationName.VideoHelpPage
-                    //    , {volunteer: this.props.route.params.volunteer,}
-                    )
-                }}
-                >
-                <Card containerStyle={styles.cardBg}>
-                    <View style={{ height:'100%'}}>
-                        <View style={{flex:1}}>
-                            <Card.Image
+                            <Text>แบบประเมิน PHQ-9</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, {},]}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.VideoHelpPage, {
+                                    volunteer: this.props.route.params.volunteer,
+                                })
+                            }}
+                        >
+                            <Image
                                 source={require("../../assets/img/video.png")}
                                 resizeMode="contain"
+                                style={{ flex: 1 }}
                             />
-                        </View>
-                        {/* <Text style={styles.buttonText}>Video</Text> */}
+                            <Text>ประเมินด้วยวิดีโอ</Text>
+                        </TouchableOpacity>
                     </View>
-                    
-                </Card>
-                </TouchableOpacity>
-
-
-
-                   
+                    <TouchableOpacity style={[styles.button, { flex: 0.2, },]}
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                            this.props.navigation.goBack();
+                        }}
+                    >
+                        <Image
+                            source={require("../../assets/img/home.png")}
+                            resizeMode="contain"
+                            style={{ flex: 1 }}
+                        />
+                        <Text>กลับสู่หน้าหลัก</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -128,29 +110,16 @@ export const styles = StyleSheet.create({
         backgroundColor: "white",
         flexDirection: 'column',
     },
-    buttonbasic: {
+    button: {
         backgroundColor: color1[1],
         borderColor: color1[1],
-    },
-    buttonhamilton: {
-        backgroundColor: color1[2],
-        borderColor: color1[2],
-    },
-    buttonphq9: {
-        backgroundColor: color1[3],
-        borderColor: color1[3],
-    },
-    buttonvideo: {
-        backgroundColor: color1[4],
-        borderColor: color1[4],
-    },
-    button: {
         borderWidth: 1,
         borderRadius: 8,
         marginTop: 10,
         marginBottom: 10,
         width: "90%",
-        height: '21%',
+        flex: 0.48,
+        marginLeft: 20,
         alignSelf: 'center',
         justifyContent: "center",
         alignItems: 'center',
@@ -159,10 +128,10 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         textAlign: "center",
-        
+
         justifyContent: 'flex-end'
-        
-        
+
+
     },
     contentText: {
         margin: 10,
@@ -178,13 +147,6 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
     },
-    cardBg: {
-        overflow: "hidden",
-        //flexDirection: "column",
-        borderRadius: 8,
-        backgroundColor: "#83B8A2",
-        marginBottom: -80
-    }
 });
 
 export default VolunteerPage;
