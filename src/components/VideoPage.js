@@ -77,6 +77,8 @@ class VideoPage extends React.Component {
         uniqueValue: 1,
         progress: 0.2,
         isEnd: false,
+        timeout1: null,
+        timeout2: null,
         //camera
         hasCameraPermission: null,
         faceDetecting: false, //when true, we look for faces
@@ -263,6 +265,14 @@ class VideoPage extends React.Component {
         
     };
 
+    // stopRunningTime = () => {
+    //     this.setState({
+    //         runningTime: false,
+    //         disabledTouchableOpacityStop: true,
+    //         disabledTouchableOpacityStart: true,
+    //         disabledTouchableOpacityNext: false,
+    //     });
+    // };
     stopRunningTime = () => {
         this.setState({
             runningTime: false,
@@ -270,6 +280,11 @@ class VideoPage extends React.Component {
             disabledTouchableOpacityStart: true,
             disabledTouchableOpacityNext: false,
         });
+        clearTimeout(this.timeout1);
+        clearTimeout(this.timeout2);
+        this.setState({
+            alerttext: ""
+        })
     };
 
     NextRunningTime = () => {
@@ -390,42 +405,24 @@ class VideoPage extends React.Component {
     };
 
     renderValidate1 = () => {
-    if (this.props.VideoReducer.command_num == 3 ) {
-    console.log("เล่าเพิ่มอีกนิดนะคะ")
-        setTimeout(() => {
+        console.log("เล่าเพิ่มอีกนิดนะคะ")
+        this.timeout1 = setTimeout(() => {
             this.renderValidate2()
             this.setState({
                 alerttext: "เล่าเพิ่มอีกนิดนะคะ"
-            }) 
+            })
         }, 20000);
-        }
     }
     renderValidate2 = () => {
         console.log("ช่วยเล่ารายละเอียดหน่อยค่ะ")
-        setTimeout(() => {
-            this.renderValidate3()
+        this.timeout2 = setTimeout(() => {
+            this.renderValidate2()
             this.setState({
                 alerttext: "ช่วยเล่ารายละเอียดหน่อยค่ะ"
-            }) 
+            })
         }, 40000);
     }
-    renderValidate3 = () => {
-        console.log("เล่าเพิ่มอีกนิดนะคะ")
-            setTimeout(() => {
-                this.renderValidate4()
-                this.setState({
-                    alerttext: "เล่าเพิ่มอีกนิดนะคะ"
-                }) 
-            }, 60000);
-    }
-    renderValidate3 = () => {
-        console.log("เล่าเพิ่มอีกนิดนะคะ")
-            setTimeout(() => {
-                this.setState({
-                    alerttext: "เล่าเพิ่มอีกนิดนะคะ"
-                }) 
-            }, 80000);
-    }
+   
 
     renderMark = () => {
         return (
