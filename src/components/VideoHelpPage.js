@@ -16,24 +16,20 @@ class VideoHelpPage extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                <View style={styles.contentHelp}>
-                        <Text style={{
-                            fontSize: 16, 
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            
-                            }}>
+                    <View style={styles.contentHelp}>
+                        <Text style={{ fontSize: 16, }}>
                             กดปุ่ม "เริ่ม"{"\n"} เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"} {"\n"}
                             กดปุ่ม "หยุด"{"\n"} เมื่อท่านทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด {"\n"} {"\n"}
-                            กดปุ่ม "ถัดไป"{"\n"} เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป{"\n"} 
+                            กดปุ่ม "ถัดไป"{"\n"} เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป{"\n"} {"\n"}
+                            ต่อไปนี้จะเป็นแบบทดสอบที่ท่านจะถูกบันทึกภาพและเสียง เมื่อใบหน้าของท่านไม่อยู่ในกรอบจะมีสัญญาณเตือน ขอให้ท่านขยับใบหน้าให้อยู่ในบริเวณเส้นประที่กำหนด{"\n\n"}ใบหน้าของท่านจะถูกปิดด้วยแถบสีเทา
                         </Text>
-                </View>  
-                    
+                    </View>
+
                     <TouchableOpacity
                         style={[styles.button, styles.buttonvideo]}
                         onPress={() => {
-                            this.props.navigation.navigate(NavigationName.VideoPage, 
-                            //    {volunteer: this.props.route.params.volunteer,}
+                            this.props.navigation.navigate(NavigationName.VideoPage,
+                                { volunteer: this.props.route.params.volunteer, }
                             )
                         }}
                     >
@@ -58,18 +54,7 @@ export const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "white",
         flexDirection: 'column',
-    },
-    buttonbasic: {
-        backgroundColor: color1[1],
-        borderColor: color1[1],
-    },
-    buttonhamilton: {
-        backgroundColor: color1[2],
-        borderColor: color1[2],
-    },
-    buttonphq9: {
-        backgroundColor: color1[3],
-        borderColor: color1[3],
+        justifyContent: "center",
     },
     buttonvideo: {
         backgroundColor: color1[4],
@@ -99,12 +84,9 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     contentHelp: {
-        marginTop: '50%',
-        marginVertical: '20%',
-        marginHorizontal: '4%',
         alignContent: 'center',
         marginLeft: 50
-        
+
     }
 });
 
