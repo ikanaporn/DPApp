@@ -10,10 +10,11 @@ import {
     ScrollView,
     Image,
 } from 'react-native';
-import { styles } from '../css';
 import { Autocomplete } from "react-native-dropdown-autocomplete";
 import DatePicker from 'react-native-datepicker';
+
 import { color1 } from '../constants';
+import { styles } from '../css';
 import { initialState } from './QuestionInitialState';
 import { writeUserData, getQuestion, getQuestionnaire, removeQuestion } from '../server/server';
 
@@ -83,6 +84,11 @@ export default class Questionnaire extends Component {
         }
     }
     async save_question(Reducer, ReducerName, selected_index, select_multiple_index, text_data) {
+        if (ReducerName === "AdminReducer") {
+            if (Reducer.question_id == 0) {
+                text_data = this.state.text_data;
+            }
+        }
         var question = Reducer.question;
         question.selected_index = selected_index;
         question.select_multiple_index = select_multiple_index;
@@ -127,6 +133,7 @@ export default class Questionnaire extends Component {
             ...initialState,
             ready: false,
         }, () => {
+            console.log(text_data);
             this.props.Save(ReducerName, this.props.navigation, this.props.route, selected_index, select_multiple_index, text_data,)
         });
     }
