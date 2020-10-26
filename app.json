@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "newDP4",
-    "slug": "newDP4",
+    "name": "DP",
+    "slug": "DP",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -23,16 +23,13 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-     
       "permissions": [
-        "READ_EXTERNAL_STORAGE", 
+        "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
-         "CAMERA",
+        "CAMERA",
         "CAMERA_ROLL",
-         "AUDIO_RECORDING"
-       
+        "AUDIO_RECORDING"
       ]
-    
     }
   }
 }
