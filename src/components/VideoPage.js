@@ -205,22 +205,7 @@ class VideoPage extends React.Component {
         });
 
 
-        //console.log("comdid:",this.camera)
-
-        //let video = this.camera.recordAsync();
-        //console.log("compodd",video)
-
-
     }
-    // playSound = async () => {
-       
-    //     try{
-    //       await this.soundObject.playAsync();
-    //     }catch(error){
-    //       this.createSound()
-    //       await this.soundObject.playAsync();
-    //     }
-    // }
 
 
     startRunningTime = () => {
