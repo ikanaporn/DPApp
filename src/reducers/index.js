@@ -43,7 +43,7 @@ const makeReducer = (initialState, Initial, name) => (state = initialState, acti
     if (parseInt(next_question_id) === 0) {
         if (name === 'AdminReducer') {
             action.navigation.goBack();
-            action.navigation.navigate(NavigationName.ViewAdminQuestion, {
+            action.navigation.navigate(NavigationName.VolunteerPage, {
                 volunteer: { id: state.volunteer_id },
             });
             return {
@@ -63,7 +63,7 @@ const makeReducer = (initialState, Initial, name) => (state = initialState, acti
             };
         } else if (name === 'HamiltonReducer') {
             action.navigation.goBack();
-            action.navigation.navigate(NavigationName.ViewHamiltonQuestion, {
+            action.navigation.navigate(NavigationName.ScoreHamilton, {
                 volunteer: action.route.params.volunteer,
             });
             return {
@@ -73,7 +73,7 @@ const makeReducer = (initialState, Initial, name) => (state = initialState, acti
             };
         } else if (name === 'PHQ9Reducer') {
             action.navigation.goBack();
-            action.navigation.navigate(NavigationName.ViewPHQ9Question, {
+            action.navigation.navigate(NavigationName.ScorePHQ9, {
                 volunteer: action.route.params.volunteer,
             });
             return {
