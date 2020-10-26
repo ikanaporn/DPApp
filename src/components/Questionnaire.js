@@ -125,7 +125,6 @@ export default class Questionnaire extends Component {
             ...initialState,
             ready: false,
         }, () => {
-            console.log(text_data);
             this.props.Save(ReducerName, this.props.navigation, this.props.route, selected_index, select_multiple_index, text_data,)
         });
     }
