@@ -39,7 +39,7 @@ import { YellowBox } from "react-native";
 import _ from "lodash";
 import { throwIfAudioIsDisabled } from "expo-av/build/Audio/AudioAvailability";
 import color1 from "../constants"
-import ProgressBar from './ProgressBar';   
+import ProgressBar from './ProgressBar';
 import { initialState, color_ProgreesBar } from './QuestionInitialState';
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
@@ -138,7 +138,7 @@ class VideoPage extends React.Component {
         this.setState({
             haveRecordingPermissions: response.status === "granted",
         });
-    
+
     }
 
 
@@ -446,232 +446,236 @@ class VideoPage extends React.Component {
                 backgroundColor: '#83B8A2'
                 , flex: 1
             }}>
-            <View style={{ flex: 0.02}}>
-                        <View style={[styles.container, { width: '100%' }]}>
-                            <ProgressBar max={test_length} step_no={this.props.VideoReducer.command_num} />
-                       </View>
-            </View>
-            <View style={{ flex: 0.98}}>
-                <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10 }}>
-                    <View key={this.state.uniqueValue} style={{ flex: 0.10, alignItems: 'flex-end', flexDirection: 'column-reverse' }}>
-                        <Timer
-                            runningTime={this.state.runningTime}
-                            countdownStart={this.state.countdownStart}
-                            onFinish={this.onFinish}
-                        />
+                <View style={{ flex: 0.02 }}>
+                    <View style={[styles.container, { width: '100%' }]}>
+                        <ProgressBar max={test_length} step_no={this.props.VideoReducer.command_num} />
                     </View>
-
-                    <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                            {element.inst}
-                        </Text>
-
-                    </View>
-
-
-                    <View style={{ flex: 0.55, justifyContent: 'center', alignItems: 'center' }}>
-
-                        {element.isImage ?
-                            // <View style={{flex:1,backgroundColor:'blue'}}>
-                            <Image style={{
-                                resizeMode: 'contain',
-                                height: element.height,
-                                width: element.width,
-
-                            }}
-
-
-                                source={element.data}
-
-                            //source={require("../../assets/img/img_part3/m0288_AN.png")}
-                            >
-                            </Image>
-
-                            // </View>
-                            : (element.isAudio ?
-                                <View style={{ flex: 1 }}>
-                                    <View style={{ flex: 0.3 }}>
-                                        <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={this.playSound36.bind(this)}>
-                                            <Image
-                                                style={{ alignSelf: 'center', resizeMode: 'center', width: '100%', height: '100%' }}
-                                                source={require("../../assets/img/volume.png")}
-                                            ></Image>
-                                            <Text style={{ fontSize: 12 }}>กดเพื่อเล่น</Text>
-
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={{ flex: 0.7, justifyContent: 'center', padding: '4%' }}>
-                                        <Text style={{ fontSize: 24 }}>
-                                            {element.data}
-                                        </Text>
-                                    </View>
-                                </View> :
-                                (this.props.VideoReducer.command_num == 2 ? (
-                                    <ScrollView style={{ flex: 1, padding: 20, width: '100%' }}
-                                        onContentSizeChange={(width, height) => {
-                                            if (height > (win_height * 0.35))
-                                                this.setState({ isScrollable: true });
-                                            else
-                                                this.setState({ isScrollable: false });
-                                        }}
-
-                                    >
-                                        {this.state.isScrollable ? bar : null}
-                                        <Text style={{ fontSize: 24 }}>
-                                            {element.data}
-                                        </Text>
-                                    </ScrollView>) : (
-                                        <Text style={{ fontSize: 24 }}>
-                                            {element.data}
-                                        </Text>))
-
-                            )
-                        }
-                        {/* {element.isVad ? (this.renderValidate1()) : null} */}
-                        <Text style={{ color: 'red', fontSize: 24, marginTop: 10 }}>{this.state.alerttext}</Text>
-
-                    </View>
-
-
-                    <View style={{ flex: 0.17 }}>
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "space-around",
-                            }}
-                        >
-                            <TouchableOpacity
-
-                                onPress={this.startRunningTime}
-                                underlayColor="#C7C7CC"
-                                style={
-                                    this.state.disabledTouchableOpacityStart == true
-                                        ? styles.buttonStartDis
-                                        : styles.buttonStart
-                                }
-                                disabled={this.state.disabledTouchableOpacityStart}
-                            >
-                                <Text style={styles.buttonText}>เริ่ม</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={this.stopRunningTime}
-                                underlayColor="#C7C7CC"
-                                style={
-                                    this.state.disabledTouchableOpacityStop == true
-                                        ? styles.buttonStopDis
-                                        : styles.buttonStop
-                                }
-                                disabled={this.state.disabledTouchableOpacityStop}
-                            >
-                                <Text style={styles.buttonText}>หยุด</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View
-                            style={{ paddingLeft: 14, paddingRight: 14 }}
-                        >
-                            <TouchableOpacity
-                                onPress={this.NextRunningTime}
-                                underlayColor="#C7C7CC"
-
-                                style={
-                                    this.state.disabledTouchableOpacityNext == true
-                                        ? styles.buttonNextDis
-                                        : styles.buttonNext
-                                }
-                                disabled={this.state.disabledTouchableOpacityNext}
-                            >
-                                <Text style={styles.buttonText}>ถัดไป</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
                 </View>
+                <View style={{ flex: 0.98 }}>
+                    <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10 }}>
+                        <View key={this.state.uniqueValue} style={{ flex: 0.10, alignItems: 'flex-end', flexDirection: 'column-reverse' }}>
+                            <Timer
+                                runningTime={this.state.runningTime}
+                                countdownStart={this.state.countdownStart}
+                                onFinish={this.onFinish}
+                            />
+                        </View>
+
+                        <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                                {element.inst}
+                            </Text>
+
+                        </View>
 
 
-                <View style={{ flex: 0.3, flexDirection: 'row' }}>
-                    <View style={{ flex: 1, margin: 10, padding: 10 }}>
-                        <Camera
+                        <View style={{ flex: 0.55, justifyContent: 'center', alignItems: 'center' }}>
 
-                            ref={ref => this.camera = ref}
-                            //ref={ref=>console.log("ref:",this.ref)}
-                            //ref={ref => {setCameraRef(ref) ;}}
-                            style={{ flex: 1, position: "relative" }}
-                            type={this.props.cameraType}
-                            onFaceDetectionError={this.handleFaceDetectionError}
-                            onFacesDetected={console.log(this.state.ready+"----------------------")}//this.state.ready ? this.handleFacesDetected : undefined}
-                            faceDetectorSettings={{
-                                mode: FaceDetector.Constants.Mode.fast,
-                                detectLandmarks: FaceDetector.Constants.Landmarks.all,
-                                runClassifications:
-                                    FaceDetector.Constants.Classifications.all,
-                                tracking: true,
-                            }}
-                            onCameraReady={() => { this.setState({ ready: true }) }}
+                            {element.isImage ?
+                                // <View style={{flex:1,backgroundColor:'blue'}}>
+                                <Image style={{
+                                    resizeMode: 'contain',
+                                    height: element.height,
+                                    width: element.width,
 
-                        >
+                                }}
+
+
+                                    source={element.data}
+
+                                //source={require("../../assets/img/img_part3/m0288_AN.png")}
+                                >
+                                </Image>
+
+                                // </View>
+                                : (element.isAudio ?
+                                    <View style={{ flex: 1 }}>
+                                        <View style={{ flex: 0.3 }}>
+                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={this.playSound36.bind(this)}>
+                                                <Image
+                                                    style={{ alignSelf: 'center', resizeMode: 'center', width: '100%', height: '100%' }}
+                                                    source={require("../../assets/img/volume.png")}
+                                                ></Image>
+                                                <Text style={{ fontSize: 12 }}>กดเพื่อเล่น</Text>
+
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ flex: 0.7, justifyContent: 'center', padding: '4%' }}>
+                                            <Text style={{ fontSize: 24 }}>
+                                                {element.data}
+                                            </Text>
+                                        </View>
+                                    </View> :
+                                    (this.props.VideoReducer.command_num == 2 ? (
+                                        <View style={{ flex: 1 }}>
+                                            {this.state.isScrollable ? bar : null}
+                                            <ScrollView style={{ flex: 1, padding: 20, width: '100%' }}
+                                                onContentSizeChange={(width, height) => {
+                                                    if (height > (win_height * 0.35))
+                                                        this.setState({ isScrollable: true });
+                                                    else
+                                                        this.setState({ isScrollable: false });
+                                                }}
+
+                                            >
+                                                <Text style={{ fontSize: 24 }}>
+                                                    {element.data}
+                                                </Text>
+                                            </ScrollView>
+                                        </View>
+                                    ) : (
+                                            <Text style={{ fontSize: 24 }}>
+                                                {element.data}
+                                            </Text>
+                                        ))
+
+                                )
+                            }
+                            {/* {element.isVad ? (this.renderValidate1()) : null} */}
+                            <Text style={{ color: 'red', fontSize: 24, marginTop: 10 }}>{this.state.alerttext}</Text>
+
+                        </View>
+
+
+                        <View style={{ flex: 0.17 }}>
                             <View
                                 style={{
-                                    flex: 1,
-                                    backgroundColor: "transparent",
                                     flexDirection: "row",
-                                    position: "absolute",
-                                    bottom: 0,
+                                    justifyContent: "space-around",
                                 }}
                             >
-                                <Text style={styles.textStandard}>
-                                    {this.state.faceDetected
-                                        ? "Face Detected"
-                                        : "No Face Detected"}
-                                </Text>
+                                <TouchableOpacity
+
+                                    onPress={this.startRunningTime}
+                                    underlayColor="#C7C7CC"
+                                    style={
+                                        this.state.disabledTouchableOpacityStart == true
+                                            ? styles.buttonStartDis
+                                            : styles.buttonStart
+                                    }
+                                    disabled={this.state.disabledTouchableOpacityStart}
+                                >
+                                    <Text style={styles.buttonText}>เริ่ม</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={this.stopRunningTime}
+                                    underlayColor="#C7C7CC"
+                                    style={
+                                        this.state.disabledTouchableOpacityStop == true
+                                            ? styles.buttonStopDis
+                                            : styles.buttonStop
+                                    }
+                                    disabled={this.state.disabledTouchableOpacityStop}
+                                >
+                                    <Text style={styles.buttonText}>หยุด</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View
+                                style={{ paddingLeft: 14, paddingRight: 14 }}
+                            >
+                                <TouchableOpacity
+                                    onPress={this.NextRunningTime}
+                                    underlayColor="#C7C7CC"
+
+                                    style={
+                                        this.state.disabledTouchableOpacityNext == true
+                                            ? styles.buttonNextDis
+                                            : styles.buttonNext
+                                    }
+                                    disabled={this.state.disabledTouchableOpacityNext}
+                                >
+                                    <Text style={styles.buttonText}>ถัดไป</Text>
+                                </TouchableOpacity>
                             </View>
 
-                            <View>
+                        </View>
 
-
-                            </View>
-
-                            {this.state.faceDetected ? (
-                                <BlurView
-
-                                    intensity={100}
-                                    style={[StyleSheet.absoluteFill]}
-                                    key={this.state.faceID}
-                                    transform={[
-                                        { perspective: 800 },
-                                        { rotateZ: `${this.state.rollAngle}deg` },
-                                        { rotateY: `${this.state.yawAngle}deg` },
-                                    ]}
-                                    style={[[StyleSheet.absoluteFill],
-                                    styles.face,
-                                    {
-                                        ...this.state.bounds.size,
-                                        left: this.state.bounds.origin.x,
-                                        width: this.state.bounds.size.width,
-                                        top: this.state.bounds.origin.y,
-                                        borderColor: '#FFD700',
-                                        borderWidth: 1,
-                                        borderRadius: this.state.bounds.size.width * 0.5,
-                                    },
-                                    ]}
-                                ></BlurView>
-                            ) : (
-                                    null
-                                )}
-                            {this.renderMark()}
-
-                        </Camera>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
-                        <Text style={{ fontSize: 14 }}>
-                            กดปุ่ม "เริ่ม" เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"}{"\n"}
+
+
+                    <View style={{ flex: 0.3, flexDirection: 'row' }}>
+                        <View style={{ flex: 1, margin: 10, padding: 10 }}>
+                            <Camera
+
+                                ref={ref => this.camera = ref}
+                                //ref={ref=>console.log("ref:",this.ref)}
+                                //ref={ref => {setCameraRef(ref) ;}}
+                                style={{ flex: 1, position: "relative" }}
+                                type={this.props.cameraType}
+                                onFaceDetectionError={this.handleFaceDetectionError}
+                                onFacesDetected={console.log(this.state.ready + "----------------------")}//this.state.ready ? this.handleFacesDetected : undefined}
+                                faceDetectorSettings={{
+                                    mode: FaceDetector.Constants.Mode.fast,
+                                    detectLandmarks: FaceDetector.Constants.Landmarks.all,
+                                    runClassifications:
+                                        FaceDetector.Constants.Classifications.all,
+                                    tracking: true,
+                                }}
+                                onCameraReady={() => { this.setState({ ready: true }) }}
+
+                            >
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        backgroundColor: "transparent",
+                                        flexDirection: "row",
+                                        position: "absolute",
+                                        bottom: 0,
+                                    }}
+                                >
+                                    <Text style={styles.textStandard}>
+                                        {this.state.faceDetected
+                                            ? "Face Detected"
+                                            : "No Face Detected"}
+                                    </Text>
+                                </View>
+
+                                <View>
+
+
+                                </View>
+
+                                {this.state.faceDetected ? (
+                                    <BlurView
+
+                                        intensity={100}
+                                        style={[StyleSheet.absoluteFill]}
+                                        key={this.state.faceID}
+                                        transform={[
+                                            { perspective: 800 },
+                                            { rotateZ: `${this.state.rollAngle}deg` },
+                                            { rotateY: `${this.state.yawAngle}deg` },
+                                        ]}
+                                        style={[[StyleSheet.absoluteFill],
+                                        styles.face,
+                                        {
+                                            ...this.state.bounds.size,
+                                            left: this.state.bounds.origin.x,
+                                            width: this.state.bounds.size.width,
+                                            top: this.state.bounds.origin.y,
+                                            borderColor: '#FFD700',
+                                            borderWidth: 1,
+                                            borderRadius: this.state.bounds.size.width * 0.5,
+                                        },
+                                        ]}
+                                    ></BlurView>
+                                ) : (
+                                        null
+                                    )}
+                                {this.renderMark()}
+
+                            </Camera>
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+                            <Text style={{ fontSize: 14 }}>
+                                กดปุ่ม "เริ่ม" เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"}{"\n"}
                             กดปุ่ม "หยุด" เมื่อท่านทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด {"\n"}{"\n"}
                             กดปุ่ม "ถัดไป" เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป
                         </Text>
-                    </View>
+                        </View>
 
+                    </View>
                 </View>
-</View>
             </View>
         )
     }
