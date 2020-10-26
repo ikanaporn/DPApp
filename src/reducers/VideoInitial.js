@@ -3,6 +3,7 @@ const instruction3_5 = "โปรดตอบคำถามทั่วไป"
 const instruction3_6 = "ตอบคำถามที่ต้องใช้จิตนาการ"
 const instruction3_7 = "โปรดบรรยายความรู้สึกและความคิดของท่านที่มีต่อภาพต่อไปนี้"
 const path = "../../assets/img/img_part3/"
+const test_length = 32
 export default [
   //no.0
   { data: "โปรดนับเลข 1 ถึง 20",

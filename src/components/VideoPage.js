@@ -39,6 +39,9 @@ import { YellowBox } from "react-native";
 import _ from "lodash";
 import { throwIfAudioIsDisabled } from "expo-av/build/Audio/AudioAvailability";
 import color1 from "../constants"
+import ProgressBar from './ProgressBar';   
+import { initialState, color_ProgreesBar } from './QuestionInitialState';
+
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
 console.warn = (message) => {
@@ -59,6 +62,7 @@ const bar = <Image
     }}
     source={require("../../assets/img/updown.png")}
 ></Image>;
+var ReducerName = 'VideoReducer';
 
 class VideoPage extends React.Component {
 
@@ -139,19 +143,7 @@ class VideoPage extends React.Component {
         this.setState({
             haveRecordingPermissions: response.status === "granted",
         });
-<<<<<<< HEAD
     
-=======
-
-        // if ({ statusAudio } == 'granted') {
-
-        //      let audioResponse = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-        //      if (audioResponse.status == 'granted'){
-        //      this.setState({ permissionsGranted: true });
-
-        //     }
-        // }
->>>>>>> c3a27086b4e06c8e44052e5804a8eb7ffbf797d7
     }
 
 
@@ -211,8 +203,6 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
-<<<<<<< HEAD
-=======
 
 
         //console.log("comdid:",this.camera)
@@ -221,7 +211,6 @@ class VideoPage extends React.Component {
         //console.log("compodd",video)
 
 
->>>>>>> c3a27086b4e06c8e44052e5804a8eb7ffbf797d7
     }
     // playSound = async () => {
        
@@ -494,15 +483,20 @@ class VideoPage extends React.Component {
     render() {
         var element = this.props.VideoReducer.element
         var data = element.data
-
+        var Reducer = this.props.VideoReducer;
+        var test_length = 31
         return (
             <View style={{
                 backgroundColor: '#83B8A2'
                 , flex: 1
             }}>
-
+            <View style={{ flex: 0.02}}>
+                        <View style={[styles.container, { width: '100%' }]}>
+                            <ProgressBar max={test_length} step_no={this.props.VideoReducer.command_num} />
+                       </View>
+            </View>
+            <View style={{ flex: 0.98}}>
                 <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10 }}>
-
                     <View key={this.state.uniqueValue} style={{ flex: 0.10, alignItems: 'flex-end', flexDirection: 'column-reverse' }}>
                         <Timer
                             runningTime={this.state.runningTime}
@@ -519,7 +513,7 @@ class VideoPage extends React.Component {
                     </View>
 
 
-                    <View style={{ flex: 0.57, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ flex: 0.55, justifyContent: 'center', alignItems: 'center' }}>
 
                         {element.isImage ?
                             // <View style={{flex:1,backgroundColor:'blue'}}>
@@ -583,7 +577,7 @@ class VideoPage extends React.Component {
                     </View>
 
 
-                    <View style={{ flex: 0.18 }}>
+                    <View style={{ flex: 0.17 }}>
                         <View
                             style={{
                                 flexDirection: "row",
@@ -637,6 +631,7 @@ class VideoPage extends React.Component {
                     </View>
 
                 </View>
+
 
                 <View style={{ flex: 0.3, flexDirection: 'row' }}>
                     <View style={{ flex: 1, margin: 10, padding: 10 }}>
@@ -720,7 +715,7 @@ class VideoPage extends React.Component {
                     </View>
 
                 </View>
-
+</View>
             </View>
         )
     }
