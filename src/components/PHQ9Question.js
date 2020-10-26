@@ -21,8 +21,7 @@ class PHQ9Question extends Questionnaire {
         this.props.navigation.setOptions({
             headerTitle: () => (
                 <View>
-                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบประเมิน PHQ-9</Text>
-                    <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร: {this.props.route.params.volunteer.id}</Text>
+                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบประเมิน PHQ-9 รหัส: {this.props.route.params.volunteer.id}</Text>
                 </View>
             )
         });

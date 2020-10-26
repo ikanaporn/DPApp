@@ -1,5 +1,3 @@
-import { connect } from 'react-redux';
-import { getQuestionnaire } from '../server/server';
 import ViewQuestion from './ViewQuestion';
 
 export default class ViewPHQ9Question extends ViewQuestion {
@@ -13,16 +11,7 @@ export default class ViewPHQ9Question extends ViewQuestion {
     }
 
     componentDidMount() {
-        this.getData();
-    }
-
-    async getData() {
-        try {
-            var data = await getQuestionnaire(this.state.volunteer_id, 'PHQ9Reducer');
-            this.setState({ questionnaire: data });
-        } catch (err) {
-            return [];
-        }
+        this.getData('PHQ9Reducer');
     }
 
     render() {

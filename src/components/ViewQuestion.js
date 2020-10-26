@@ -6,8 +6,10 @@ import {
     Image,
     Dimensions,
 } from 'react-native';
-import { styles } from '../css';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { styles } from '../css';
+import { getQuestionnaire } from '../server/server';
 
 const win_height = Dimensions.get('window').height;
 const bar = <Image
@@ -22,25 +24,35 @@ const bar = <Image
 ></Image>;
 
 export default class ViewQuestion extends Component {
+    async getData(name) {
+        try {
+            var data = await getQuestionnaire(this.state.volunteer_id, name);
+            this.setState({ questionnaire: data });
+        } catch (err) {
+            return null;
+        }
+    }
+
     renderAnswer(question, answer_type, choices, is_show_content_choice, selected_index, select_multiple_index, text_data, remark,) {
         var render_question =
-            <TouchableOpacity style={styles.button}>
+            <View style={styles.button}>
                 <Text style={styles.buttonText}>
                     {question}
                 </Text>
-            </TouchableOpacity>;
+            </View>;
 
         var render_remark =
             <View style={[styles.remark, { marginTop: 10, },]}>
                 <Text style={styles.remarkText}>{remark}</Text>
             </View>;
 
+        var pad = 20;
         switch (answer_type) {
             case 'text':
                 return (
                     <View>
                         {render_question}
-                        <Text>{text_data}</Text>
+                        <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text>
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -49,7 +61,7 @@ export default class ViewQuestion extends Component {
                     <View>
                         {render_question}
                         {choices.map((obj, index) => {
-                            return (selected_index == obj.id) ? (<Text key={index}>{obj.content}</Text>) : null;
+                            return (selected_index == obj.id) ? (<Text key={index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}</Text>) : null;
                         })}
                         {remark ? render_remark : null}
                     </View>
@@ -59,9 +71,9 @@ export default class ViewQuestion extends Component {
                     <View>
                         {render_question}
                         {choices.map((obj, index) => {
-                            return (selected_index == obj.id && !obj.is_other) ? (<Text key={index}>{obj.content}</Text>) : null;
+                            return (selected_index == obj.id && !obj.is_other) ? (<Text key={index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}</Text>) : null;
                         })}
-                        {text_data ? <View><Text>{text_data}</Text></View> : null}
+                        {text_data ? <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text> : null}
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -76,7 +88,7 @@ export default class ViewQuestion extends Component {
                 return (
                     <View>
                         {render_question}
-                        <Text>{formatted_date}</Text>
+                        <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{formatted_date}</Text>
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -84,7 +96,7 @@ export default class ViewQuestion extends Component {
                 return (
                     <View>
                         {render_question}
-                        <Text>{text_data}</Text>
+                        <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text>
                     </View>
                 );
             case 'multiple':
@@ -96,9 +108,9 @@ export default class ViewQuestion extends Component {
                     <View>
                         {render_question}
                         {choices.map((obj, index) => {
-                            return (all_index.find(element => element == obj.id) && !obj.is_other) ? (<Text key={index}>{obj.content}</Text>) : null;
+                            return (all_index.find(element => element == obj.id) && !obj.is_other) ? (<Text key={index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}</Text>) : null;
                         })}
-                        {text_data ? <View><Text>{text_data}</Text></View> : null}
+                        {text_data ? <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text> : null}
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -109,13 +121,13 @@ export default class ViewQuestion extends Component {
                         {choices.map((obj, index) => {
                             if (obj.is_selection) {
                                 return obj.sub_choices.map((sub_obj, sub_index) => {
-                                    return (selected_index == sub_obj.id && !sub_obj.is_other) ? (<Text key={sub_index}>{obj.content}{"\n"}{sub_obj.content}</Text>) : null;
+                                    return (selected_index == sub_obj.id && !sub_obj.is_other) ? (<Text key={sub_index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}{"\n"}{sub_obj.content}</Text>) : null;
                                 });
                             } else {
-                                return (selected_index == obj.id && !obj.is_other) ? (<Text key={index}>{obj.content}</Text>) : null;
+                                return (selected_index == obj.id && !obj.is_other) ? (<Text key={index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}</Text>) : null;
                             }
                         })}
-                        {text_data ? <View><Text>{text_data}</Text></View> : null}
+                        {text_data ? <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text> : null}
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -126,13 +138,13 @@ export default class ViewQuestion extends Component {
                         {choices.map((obj, index) => {
                             if (obj.is_picker) {
                                 return obj.sub_choices.map((sub_obj, sub_index) => {
-                                    return (selected_index == sub_obj.id && !sub_obj.is_other) ? (<Text key={sub_index}>{obj.content[0]} {sub_obj.content} {obj.content[1]}</Text>) : null;
+                                    return (selected_index == sub_obj.id && !sub_obj.is_other) ? (<Text key={sub_index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content[0]} {sub_obj.content} {obj.content[1]}</Text>) : null;
                                 });
                             } else {
-                                return (selected_index == obj.id && !obj.is_other) ? (<Text key={index}>{obj.content}</Text>) : null;
+                                return (selected_index == obj.id && !obj.is_other) ? (<Text key={index} style={{ paddingLeft: pad, marginLeft: pad, }}>{obj.content}</Text>) : null;
                             }
                         })}
-                        {text_data ? <View><Text>{text_data}</Text></View> : null}
+                        {text_data ? <Text style={{ paddingLeft: pad, marginLeft: pad, }}>{text_data}</Text> : null}
                         {remark ? render_remark : null}
                     </View>
                 );
@@ -147,8 +159,7 @@ export default class ViewQuestion extends Component {
                 this.props.navigation.setOptions({
                     headerTitle: () => (
                         <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลอาสาสมัคร</Text>
-                            <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร {this.props.route.params.volunteer.id}</Text>
+                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลอาสาสมัคร รหัส: {this.props.route.params.volunteer.id}</Text>
                         </View>
                     )
                 });
@@ -157,8 +168,7 @@ export default class ViewQuestion extends Component {
                 this.props.navigation.setOptions({
                     headerTitle: () => (
                         <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลพื้นฐาน</Text>
-                            <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร {this.props.route.params.volunteer.id}</Text>
+                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลพื้นฐาน รหัส: {this.props.route.params.volunteer.id}</Text>
                         </View>
                     )
                 });
@@ -167,8 +177,7 @@ export default class ViewQuestion extends Component {
                 this.props.navigation.setOptions({
                     headerTitle: () => (
                         <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบวัด HAMILTON</Text>
-                            <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร {this.props.route.params.volunteer.id}</Text>
+                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบวัด HAMILTON รหัส: {this.props.route.params.volunteer.id}</Text>
                         </View>
                     )
                 });
@@ -177,8 +186,7 @@ export default class ViewQuestion extends Component {
                 this.props.navigation.setOptions({
                     headerTitle: () => (
                         <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบประเมิน PHQ9</Text>
-                            <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร {this.props.route.params.volunteer.id}</Text>
+                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบประเมิน PHQ9 รหัส: {this.props.route.params.volunteer.id}</Text>
                         </View>
                     )
                 });
