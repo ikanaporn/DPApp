@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Card } from "react-native-elements";
 import { connect } from "react-redux";
 import {
@@ -42,9 +42,9 @@ import color1 from "../constants"
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
 console.warn = (message) => {
-if (message.indexOf("Setting a timer") <= -1) {
-_console.warn(message);
-}
+    if (message.indexOf("Setting a timer") <= -1) {
+        _console.warn(message);
+    }
 };
 //const [recording, setRecording] = useState(false)
 const win_height = Dimensions.get('window').height;
@@ -114,14 +114,14 @@ class VideoPage extends React.Component {
             headerBackTitle: " ",
         });
 
-       // this.takeFilm = this.takeFilm.bind(this)
-       // this.state = {permissionsGranted:false,bcolor:'red'}
+        // this.takeFilm = this.takeFilm.bind(this)
+        // this.state = {permissionsGranted:false,bcolor:'red'}
     }
 
-    setCameraRef=(ref)=>{
-    //    this.setState({cameraRef:ref});
-    //    let video = ref.recordAsync();
-       console.log("veide",ref)
+    setCameraRef = (ref) => {
+        //    this.setState({cameraRef:ref});
+        //    let video = ref.recordAsync();
+        console.log("veide", ref)
     }
 
     async checkPermissions() {
@@ -131,18 +131,30 @@ class VideoPage extends React.Component {
 
         const { status: statusRoll } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         if (statusRoll === "granted") {
-          this.setState({ showCamera: true });
+            this.setState({ showCamera: true });
         }
 
         //const { status: statusAudio } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         this.setState({
-        haveRecordingPermissions: response.status === "granted",
+            haveRecordingPermissions: response.status === "granted",
         });
+<<<<<<< HEAD
     
+=======
+
+        // if ({ statusAudio } == 'granted') {
+
+        //      let audioResponse = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+        //      if (audioResponse.status == 'granted'){
+        //      this.setState({ permissionsGranted: true });
+
+        //     }
+        // }
+>>>>>>> c3a27086b4e06c8e44052e5804a8eb7ffbf797d7
     }
-    
- 
+
+
 
     async playSound() {
         
@@ -199,6 +211,17 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
+<<<<<<< HEAD
+=======
+
+
+        //console.log("comdid:",this.camera)
+
+        //let video = this.camera.recordAsync();
+        //console.log("compodd",video)
+
+
+>>>>>>> c3a27086b4e06c8e44052e5804a8eb7ffbf797d7
     }
     // playSound = async () => {
        
@@ -215,14 +238,13 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
-        if(this.props.VideoReducer.command_num == 0)
-        {
+        if (this.props.VideoReducer.command_num == 0) {
             this.recordVideo();
         }
 
 
-        
-    
+
+
         if (
             this.props.VideoReducer.command_num == 9 ||
             this.props.VideoReducer.command_num == 10 ||
@@ -238,9 +260,9 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityNext: true,
                 countdownStart: 60,
             });
-        } 
-        else   {
-            
+        }
+        else {
+
             if (this.props.VideoReducer.command_num == 1) {
                 console.log("== 1 state NextRunningTime")
                 this.setState({
@@ -249,20 +271,20 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
                     countdownStart: 15,
-            });
+                });
             } else {
                 console.log("else state")
                 this.setState({
-                runningTime:true,
-                disabledTouchableOpacityStart: true,
-                disabledTouchableOpacityStop: false,
-                disabledTouchableOpacityNext: true,
-                countdownStart: 120,
-            });
+                    runningTime: true,
+                    disabledTouchableOpacityStart: true,
+                    disabledTouchableOpacityStop: false,
+                    disabledTouchableOpacityNext: true,
+                    countdownStart: 120,
+                });
             }
-            
+
         }
-        
+
     };
 
     // stopRunningTime = () => {
@@ -293,9 +315,9 @@ class VideoPage extends React.Component {
         console.log("command_num : ", this.props.VideoReducer.command_num)
         this.setState(({ uniqueValue }) => ({
             uniqueValue: uniqueValue + 1,
-            ready: false,
+            //ready: false,
         }));
-        
+
 
         if (
             this.props.VideoReducer.command_num == 8 ||
@@ -317,8 +339,8 @@ class VideoPage extends React.Component {
         else if (this.props.VideoReducer.command_num == 31) {
             console.log("tessss")
             if (this.state.recording) {
-            //console.log("saved video",this.camera)
-              this.stopRecordViedo()
+                //console.log("saved video",this.camera)
+                this.stopRecordViedo()
             } else {
                 console.log("Video not record")
             }
@@ -332,16 +354,16 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
                     countdownStart: 15,
-            });
+                });
             } else {
                 console.log("else state...")
                 this.setState({
-                runningTime: false,
-                disabledTouchableOpacityStart: false,
-                disabledTouchableOpacityStop: true,
-                disabledTouchableOpacityNext: true,
-                countdownStart: 120,
-            });
+                    runningTime: false,
+                    disabledTouchableOpacityStart: false,
+                    disabledTouchableOpacityStop: true,
+                    disabledTouchableOpacityNext: true,
+                    countdownStart: 120,
+                });
             }
         }
     };
@@ -432,7 +454,7 @@ class VideoPage extends React.Component {
                         alignSelf: "center",
                         width: "100%",
                         height: "100%",
-                        
+
                     }}
                     source={require("../../assets/img/camera/output.png")}
                 ></Image>
@@ -450,36 +472,38 @@ class VideoPage extends React.Component {
         );
     };
     recordVideo = async () => {
-        console.log("state:",this.state.recording)
-       
-            this.setState({
-            recording: true,                            
+        console.log("state:", this.state.recording)
+
+        this.setState({
+            recording: true,
         });
         console.log("recording")
-        await this.camera.recordAsync({quality:'4:3'}).then((file)=>{
-        console.log("file",file.uri)
-        const asset = MediaLibrary.createAssetAsync(file.uri);
+        await this.camera.recordAsync({ quality: '4:3' }).then((file) => {
+            console.log("file", file.uri)
+            const asset = MediaLibrary.createAssetAsync(file.uri);
         });
-       
+
     }
     stopRecordViedo = async () => {
         this.setState({
             recording: false,
         });
         await this.camera.stopRecording()
-    } 
+    }
 
     render() {
         var element = this.props.VideoReducer.element
         var data = element.data
-        
+
         return (
-            <View style={{backgroundColor:'#83B8A2'
-                ,flex:1}}>
+            <View style={{
+                backgroundColor: '#83B8A2'
+                , flex: 1
+            }}>
 
-                <View style={{backgroundColor:'#ffffff',flex:0.7, margin: 10, borderRadius: 10}}>
+                <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10 }}>
 
-                    <View key={this.state.uniqueValue} style={{ flex:0.10, alignItems:'flex-end', flexDirection: 'column-reverse'}}>
+                    <View key={this.state.uniqueValue} style={{ flex: 0.10, alignItems: 'flex-end', flexDirection: 'column-reverse' }}>
                         <Timer
                             runningTime={this.state.runningTime}
                             countdownStart={this.state.countdownStart}
@@ -487,187 +511,187 @@ class VideoPage extends React.Component {
                         />
                     </View>
 
-                    <View style={{ flex:0.15, justifyContent: 'center',alignItems: 'center'}}>
-                        <Text style={{fontSize:18, fontWeight: "bold"}}>
-                        {element.inst}
+                    <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                            {element.inst}
                         </Text>
 
                     </View>
 
-                    
-                    <View style={{ flex:0.57, justifyContent: 'center',alignItems: 'center'}}>
-                   
-                            {element.isImage ? 
-                        // <View style={{flex:1,backgroundColor:'blue'}}>
-                                 <Image style={{
-                                     resizeMode: 'contain',
-                                     height: element.height, 
-                                     width: element.width, 
 
-                                    }}
-                                 
-                                   
-                                   source={element.data}
+                    <View style={{ flex: 0.57, justifyContent: 'center', alignItems: 'center' }}>
 
-                                   //source={require("../../assets/img/img_part3/m0288_AN.png")}
-                                 >
-                                </Image>
-                                
-                                // </View>
-                           : (element.isAudio ? 
-                            <View style={{flex:1}}>
-                                <View style={{flex:0.3}}>
-                                    <TouchableOpacity style={{flex:1,alignItems:'center'}} onPress={this.playSound36.bind(this)}>
+                        {element.isImage ?
+                            // <View style={{flex:1,backgroundColor:'blue'}}>
+                            <Image style={{
+                                resizeMode: 'contain',
+                                height: element.height,
+                                width: element.width,
+
+                            }}
+
+
+                                source={element.data}
+
+                            //source={require("../../assets/img/img_part3/m0288_AN.png")}
+                            >
+                            </Image>
+
+                            // </View>
+                            : (element.isAudio ?
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ flex: 0.3 }}>
+                                        <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={this.playSound36.bind(this)}>
                                             <Image
-                                                style={{ alignSelf:'center',resizeMode:'center',width:'100%',height:'100%'}}
+                                                style={{ alignSelf: 'center', resizeMode: 'center', width: '100%', height: '100%' }}
                                                 source={require("../../assets/img/volume.png")}
                                             ></Image>
-                                                <Text style={{fontSize:12}}>กดเพื่อเล่น</Text>
-                                            
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{flex:0.7, justifyContent:'center',padding: '4%'}}>
-                                    <Text style={{fontSize:24}}>
-                                        {element.data}
-                                    </Text>
-                                </View>
-                            </View>: 
-                        (this.props.VideoReducer.command_num == 2 ? (
-                        <ScrollView  style={{flex:1, padding: 20,width:'100%'}}
-                        onContentSizeChange={(width, height) => {
-                            if (height > (win_height * 0.35))
-                                this.setState({ isScrollable: true });
-                            else
-                                this.setState({ isScrollable: false });
-                        }}
+                                            <Text style={{ fontSize: 12 }}>กดเพื่อเล่น</Text>
 
-                        >
-                        {this.state.isScrollable ? bar : null}
-                        <Text style={{fontSize:24}}>
-                            {element.data} 
-                        </Text>
-                       </ScrollView>) : (
-                       <Text style={{fontSize:24}}>
-                            {element.data} 
-                            </Text>))
-                        
-                        )
-                           }
-                           {/* {element.isVad ? (this.renderValidate1()) : null} */}
-                        <Text style={{color:'red', fontSize: 20, marginTop:10}}>{this.state.alerttext}</Text>
-                       
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flex: 0.7, justifyContent: 'center', padding: '4%' }}>
+                                        <Text style={{ fontSize: 24 }}>
+                                            {element.data}
+                                        </Text>
+                                    </View>
+                                </View> :
+                                (this.props.VideoReducer.command_num == 2 ? (
+                                    <ScrollView style={{ flex: 1, padding: 20, width: '100%' }}
+                                        onContentSizeChange={(width, height) => {
+                                            if (height > (win_height * 0.35))
+                                                this.setState({ isScrollable: true });
+                                            else
+                                                this.setState({ isScrollable: false });
+                                        }}
+
+                                    >
+                                        {this.state.isScrollable ? bar : null}
+                                        <Text style={{ fontSize: 24 }}>
+                                            {element.data}
+                                        </Text>
+                                    </ScrollView>) : (
+                                        <Text style={{ fontSize: 24 }}>
+                                            {element.data}
+                                        </Text>))
+
+                            )
+                        }
+                        {/* {element.isVad ? (this.renderValidate1()) : null} */}
+                        <Text style={{ color: 'red', fontSize: 24, marginTop: 10 }}>{this.state.alerttext}</Text>
+
                     </View>
 
 
-                    <View style={{ flex:0.18}}>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-around",
-                        }}
-                    >
-                        <TouchableOpacity
-                        
-                            onPress={this.startRunningTime}
-                            underlayColor="#C7C7CC"
-                            style={
-                                this.state.disabledTouchableOpacityStart == true
-                                    ? styles.buttonStartDis
-                                    : styles.buttonStart
-                            }
-                            disabled={this.state.disabledTouchableOpacityStart}
+                    <View style={{ flex: 0.18 }}>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                            }}
                         >
-                        <Text style={styles.buttonText}>เริ่ม</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={this.stopRunningTime}
-                            underlayColor="#C7C7CC"
-                            style={
-                                this.state.disabledTouchableOpacityStop == true
-                                    ? styles.buttonStopDis
-                                    : styles.buttonStop
-                            }
-                            disabled={this.state.disabledTouchableOpacityStop}
+                            <TouchableOpacity
+
+                                onPress={this.startRunningTime}
+                                underlayColor="#C7C7CC"
+                                style={
+                                    this.state.disabledTouchableOpacityStart == true
+                                        ? styles.buttonStartDis
+                                        : styles.buttonStart
+                                }
+                                disabled={this.state.disabledTouchableOpacityStart}
+                            >
+                                <Text style={styles.buttonText}>เริ่ม</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.stopRunningTime}
+                                underlayColor="#C7C7CC"
+                                style={
+                                    this.state.disabledTouchableOpacityStop == true
+                                        ? styles.buttonStopDis
+                                        : styles.buttonStop
+                                }
+                                disabled={this.state.disabledTouchableOpacityStop}
+                            >
+                                <Text style={styles.buttonText}>หยุด</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View
+                            style={{ paddingLeft: 14, paddingRight: 14 }}
                         >
-                            <Text style={styles.buttonText}>หยุด</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View
-                        style={{ paddingLeft: 14, paddingRight: 14 }}
-                    >
-                        <TouchableOpacity
-                            onPress={this.NextRunningTime}
-                            underlayColor="#C7C7CC"
-                            
-                            style={
-                                this.state.disabledTouchableOpacityNext == true
-                                    ? styles.buttonNextDis
-                                    : styles.buttonNext
-                            }
-                            disabled={this.state.disabledTouchableOpacityNext}
-                        >
-                            <Text style={styles.buttonText}>ถัดไป</Text>
-                        </TouchableOpacity>
-                    </View>
+                            <TouchableOpacity
+                                onPress={this.NextRunningTime}
+                                underlayColor="#C7C7CC"
+
+                                style={
+                                    this.state.disabledTouchableOpacityNext == true
+                                        ? styles.buttonNextDis
+                                        : styles.buttonNext
+                                }
+                                disabled={this.state.disabledTouchableOpacityNext}
+                            >
+                                <Text style={styles.buttonText}>ถัดไป</Text>
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
 
                 </View>
 
-                <View style={{ flex:0.3,flexDirection:'row'}}>
-                    <View style={{flex:1,margin: 10}}>
-                    <Camera
-                        
-                        ref={ref => this.camera = ref}
-                        //ref={ref=>console.log("ref:",this.ref)}
-                        //ref={ref => {setCameraRef(ref) ;}}
-                        style={{ flex: 1, position: "relative" }}
-                        type={this.props.cameraType}
-                        onFaceDetectionError={this.handleFaceDetectionError}
-                        onFacesDetected={this.state.ready ? this.handleFacesDetected : null}
-                        faceDetectorSettings={{
-                            mode: FaceDetector.Constants.Mode.fast,
-                            detectLandmarks: FaceDetector.Constants.Landmarks.all,
-                            runClassifications:
-                                FaceDetector.Constants.Classifications.all,
-                            tracking: true,
-                        }}
-                        onCameraReady={() => { this.setState({ ready: true }) }}
-                        
-                    >
-                        <View
-                            style={{
-                                flex: 1,
-                                backgroundColor: "transparent",
-                                flexDirection: "row",
-                                position: "absolute",
-                                bottom: 0,
+                <View style={{ flex: 0.3, flexDirection: 'row' }}>
+                    <View style={{ flex: 1, margin: 10, padding: 10 }}>
+                        <Camera
+
+                            ref={ref => this.camera = ref}
+                            //ref={ref=>console.log("ref:",this.ref)}
+                            //ref={ref => {setCameraRef(ref) ;}}
+                            style={{ flex: 1, position: "relative" }}
+                            type={this.props.cameraType}
+                            onFaceDetectionError={this.handleFaceDetectionError}
+                            onFacesDetected={this.state.ready ? this.handleFacesDetected : null}
+                            faceDetectorSettings={{
+                                mode: FaceDetector.Constants.Mode.fast,
+                                detectLandmarks: FaceDetector.Constants.Landmarks.all,
+                                runClassifications:
+                                    FaceDetector.Constants.Classifications.all,
+                                tracking: true,
                             }}
+                            onCameraReady={() => { this.setState({ ready: true }) }}
+
                         >
-                            <Text style={styles.textStandard}>
-                                {this.state.faceDetected
-                                    ? "Face Detected"
-                                    : "No Face Detected"}
-                            </Text>
-                        </View>
+                            <View
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: "transparent",
+                                    flexDirection: "row",
+                                    position: "absolute",
+                                    bottom: 0,
+                                }}
+                            >
+                                <Text style={styles.textStandard}>
+                                    {this.state.faceDetected
+                                        ? "Face Detected"
+                                        : "No Face Detected"}
+                                </Text>
+                            </View>
 
-                        <View>
-                       
+                            <View>
 
-                        </View>
 
-                        {this.state.faceDetected ? (
-                            <BlurView
-                            
-                                intensity={100}
-                                style={[StyleSheet.absoluteFill]}
-                                key={this.state.faceID}
-                                transform={[
-                                    { perspective: 800 },
-                                    { rotateZ: `${this.state.rollAngle}deg` },
-                                    { rotateY: `${this.state.yawAngle}deg` },
-                                ]}
-                                style={[[StyleSheet.absoluteFill],
+                            </View>
+
+                            {this.state.faceDetected ? (
+                                <BlurView
+
+                                    intensity={100}
+                                    style={[StyleSheet.absoluteFill]}
+                                    key={this.state.faceID}
+                                    transform={[
+                                        { perspective: 800 },
+                                        { rotateZ: `${this.state.rollAngle}deg` },
+                                        { rotateY: `${this.state.yawAngle}deg` },
+                                    ]}
+                                    style={[[StyleSheet.absoluteFill],
                                     styles.face,
                                     {
                                         ...this.state.bounds.size,
@@ -678,17 +702,17 @@ class VideoPage extends React.Component {
                                         borderWidth: 1,
                                         borderRadius: this.state.bounds.size.width * 0.5,
                                     },
-                                ]}
-                            ></BlurView>
-                        ) : (
-                                null
-                            )}
-                        {this.renderMark()}
-                        
-                    </Camera>
+                                    ]}
+                                ></BlurView>
+                            ) : (
+                                    null
+                                )}
+                            {this.renderMark()}
+
+                        </Camera>
                     </View>
-                    <View style={{flex:1, justifyContent:'center', padding:10}}>
-                        <Text style={{fontSize:14}}>
+                    <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+                        <Text style={{ fontSize: 14 }}>
                             กดปุ่ม "เริ่ม" เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"}{"\n"}
                             กดปุ่ม "หยุด" เมื่อท่านทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด {"\n"}{"\n"}
                             กดปุ่ม "ถัดไป" เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป
@@ -696,7 +720,7 @@ class VideoPage extends React.Component {
                     </View>
 
                 </View>
-                
+
             </View>
         )
     }
@@ -709,22 +733,22 @@ class VideoPage extends React.Component {
 
 
 const styles = StyleSheet.create({
-    contentHelp:{
+    contentHelp: {
         backgroundColor: '#ffffff',
         //marginLeft: '60%',
         //flexDirection: 'row',
         flex: 0.5
-       
+
     },
     contentlower: {
         height: '36%',
         width: '95%',
         backgroundColor: '#83B8A2',
         marginLeft: '0%',
-        marginRight:'0%',
+        marginRight: '0%',
         flexDirection: 'row-reverse',
-        
-        
+
+
     },
     containers: {
         height: "90%",
@@ -735,8 +759,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginTop: '3%',
         flex: 0.5
-        
-        
+
+
     },
     container: {
         backgroundColor: "#83B8A2",
@@ -835,6 +859,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         alignSelf: "center",
         margin: 20,
+        padding: 20,
     },
     textStandard: {
         fontSize: 12,
@@ -855,7 +880,7 @@ const styles = StyleSheet.create({
     face: {
         //padding: 10,
         borderWidth: 10,
-       // borderRadius: 2,
+        // borderRadius: 2,
         position: "absolute",
         borderColor: "#FFD700",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -866,6 +891,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         margin: 10,
+        padding: 10,
         backgroundColor: "transparent",
     },
     containerAlert: {
