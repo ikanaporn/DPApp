@@ -21,8 +21,7 @@ class BasicQuestion extends Questionnaire {
         this.props.navigation.setOptions({
             headerTitle: () => (
                 <View>
-                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลพื้นฐาน</Text>
-                    <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร: {this.props.route.params.volunteer.id}</Text>
+                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลพื้นฐาน รหัส: {this.props.route.params.volunteer.id}</Text>
                 </View>
             )
         });

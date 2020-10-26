@@ -63,6 +63,7 @@ class ListVolunteerPage extends React.Component {
                             this.setState({ isScrollable: false });
                     }}
                 >
+                    <Text>กรุณาเลือกหมายเลขของอาสาสมัครที่ท่านต้องการบันทึกข้อมูล</Text>
                     {this.state.data == null
                         ? <Text>Loading</Text>
                         : this.state.data.map((obj, index) => {

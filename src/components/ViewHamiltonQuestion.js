@@ -1,5 +1,3 @@
-import { connect } from 'react-redux';
-import { getQuestionnaire } from '../server/server';
 import ViewQuestion from './ViewQuestion';
 
 export default class ViewHamiltonQuestion extends ViewQuestion {
@@ -13,16 +11,7 @@ export default class ViewHamiltonQuestion extends ViewQuestion {
     }
 
     componentDidMount() {
-        this.getData();
-    }
-
-    async getData() {
-        try {
-            var data = await getQuestionnaire(this.state.volunteer_id, 'HamiltonReducer');
-            this.setState({ questionnaire: data });
-        } catch (err) {
-            return [];
-        }
+        this.getData('HamiltonReducer');
     }
 
     render() {

@@ -21,8 +21,7 @@ class HamiltonQuestion extends Questionnaire {
         this.props.navigation.setOptions({
             headerTitle: () => (
                 <View>
-                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบวัด HAMILTON</Text>
-                    <Text style={[{ color: 'white', },]}>รหัสอาสาสมัคร: {this.props.route.params.volunteer.id}</Text>
+                    <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบวัด HAMILTON รหัส: {this.props.route.params.volunteer.id}</Text>
                 </View>
             )
         });

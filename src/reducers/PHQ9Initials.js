@@ -5,6 +5,12 @@ const repeatchoice = [
     { id: 3, content: "2. มีค่อนข้างบ่อย", is_other: false },
     { id: 4, content: "3. มีเกือบทุกวัน", is_other: false },
 ];
+const scores = [
+    "0",
+    "1",
+    "2",
+    "3",
+];
 const test_length = 9;
 
 export default [
@@ -12,6 +18,7 @@ export default [
         question: `1. ${repeatword} เบื่อ ทำอะไร ๆ ก็ไม่เพลิดเพลิน`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "1",
             "1",
@@ -26,6 +33,7 @@ export default [
         question: `2. ${repeatword} ไม่สบายใจ ซึมเศร้า หรือท้อแท้`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "2",
             "2",
@@ -40,6 +48,7 @@ export default [
         question: `3. ${repeatword} หลับยาก หรือหลับ ๆ ตื่น ๆ หรือหลับมากไป`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "3",
             "3",
@@ -54,6 +63,7 @@ export default [
         question: `4. ${repeatword} เหนื่อยง่าย หรือไม่ค่อยมีแรง`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "4",
             "4",
@@ -68,6 +78,7 @@ export default [
         question: `5. ${repeatword} เบื่ออาหาร หรือกินมากเกินไป`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "5",
             "5",
@@ -82,6 +93,7 @@ export default [
         question: `6. ${repeatword} รู้สึกไม่ดีกับตัวเอง คิดว่าตัวเองล้มเหลว หรือเป็นคนทำให้ตัวเอง หรือครอบครัวผิดหวัง`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "6",
             "6",
@@ -96,6 +108,7 @@ export default [
         question: `7. ${repeatword} สมาธิไม่ดีเวลาทำอะไร เช่น ดูโทรทัศน์ ฟังวิทยุ หรือทำงานที่ต้องใช้ความตั้งใจ`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "7",
             "7",
@@ -110,6 +123,7 @@ export default [
         question: `8. ${repeatword} พูดหรือทำอะไรช้าจนคนอื่นมองเห็น หรือกระสับกระส่ายจนท่านอยู่ไม่นิ่งเหมือนเคย`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "8",
             "8",
@@ -124,6 +138,7 @@ export default [
         question: `9. ${repeatword} คิดทำร้ายตนเอง หรือคิดว่าถ้าตาย ๆ ไปเสียคงจะดี`,
         answer_type: 'option',
         choices: repeatchoice,
+        score: scores,
         next_state: [
             "0",
             "0",
