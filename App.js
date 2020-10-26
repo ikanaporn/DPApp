@@ -8,10 +8,6 @@ export default class App extends React.Component {
     _activate = () => {
         activateKeepAwake();
     };
-
-    _deactivate = () => {
-        deactivateKeepAwake();
-    };
     
     render() {
         console.disableYellowBox = true;
