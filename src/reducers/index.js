@@ -43,6 +43,10 @@ const makeReducer = (initialState, Initial, name) => (state = initialState, acti
     if (parseInt(next_question_id) === 0) {
         if (name === 'AdminReducer') {
             action.navigation.goBack();
+            action.navigation.goBack();
+            action.navigation.navigate(NavigationName.ListVolunteerPage, {
+                volunteer: { id: state.volunteer_id },
+            });
             action.navigation.navigate(NavigationName.VolunteerPage, {
                 volunteer: { id: state.volunteer_id },
             });
