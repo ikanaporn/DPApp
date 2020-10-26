@@ -80,6 +80,8 @@ class VideoPage extends React.Component {
         countdownStart: 120,
         uniqueValue: 1,
         isEnd: false,
+        timeout1: null,
+        timeout2: null,
         //camera
         hasCameraPermission: null,
         faceDetecting: false, //when true, we look for faces
@@ -96,7 +98,9 @@ class VideoPage extends React.Component {
         //recording
         recording: true,
         //setRecording: false
-        haveRecordingPermissions: false
+        haveRecordingPermissions: false,
+        //audio
+        soundplaying: false
     };
     countDownTimer = null;
 
@@ -204,12 +208,13 @@ class VideoPage extends React.Component {
 
 
         if (
+            this.props.VideoReducer.command_num == 8 ||
             this.props.VideoReducer.command_num == 9 ||
             this.props.VideoReducer.command_num == 10 ||
             this.props.VideoReducer.command_num == 11 ||
             this.props.VideoReducer.command_num == 12 ||
-            this.props.VideoReducer.command_num == 13 ||
-            this.props.VideoReducer.command_num == 14
+            this.props.VideoReducer.command_num == 13 
+        
         ) {
             this.setState({
                 runningTime: true,
@@ -252,6 +257,11 @@ class VideoPage extends React.Component {
             disabledTouchableOpacityStart: true,
             disabledTouchableOpacityNext: false,
         });
+        clearTimeout(this.timeout1);
+        clearTimeout(this.timeout2);
+        this.setState({
+            alerttext: ""
+        })
     };
 
     NextRunningTime = () => {
@@ -264,13 +274,14 @@ class VideoPage extends React.Component {
         }));
 
 
-        if (
+        if ( 
+            this.props.VideoReducer.command_num == 8 ||
             this.props.VideoReducer.command_num == 9 ||
             this.props.VideoReducer.command_num == 10 ||
             this.props.VideoReducer.command_num == 11 ||
             this.props.VideoReducer.command_num == 12 ||
-            this.props.VideoReducer.command_num == 13 ||
-            this.props.VideoReducer.command_num == 14
+            this.props.VideoReducer.command_num == 13 
+           
         ) {
             this.setState({
                 runningTime: false,
