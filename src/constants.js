@@ -1,3 +1,18 @@
+import React from 'react';
+import { Image, } from 'react-native';
+
+export const bar = <Image
+    style={{
+        alignSelf: 'flex-end',
+        width: 50,
+        height: 50,
+        resizeMode: 'center',
+        zIndex: 3,
+        position: 'absolute',
+    }}
+    source={require("../assets/img/updown.png")}
+></Image>;
+
 // Questionnaire
 export const SAVE = "SAVE";
 export const BACK = "BACK";
@@ -7,7 +22,7 @@ export const EDIT = "EDIT";
 export const SAVE_EDIT = "SAVE_EDIT";
 
 // Theme dark-green green yellow pink dark-blue blue
-export const color1 = ["#83B8A2","#B2DABF","#E3EF75","#EAABB4","#83B8A2","#94DEE8"];
+export const color1 = ["#83B8A2", "#B2DABF", "#E3EF75", "#EAABB4", "#83B8A2", "#94DEE8"];
 
 //NavigationName
 export const NavigationName = {
