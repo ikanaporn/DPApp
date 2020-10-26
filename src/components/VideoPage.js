@@ -93,7 +93,9 @@ class VideoPage extends React.Component {
         //recording
         recording: true,
         //setRecording: false
-        haveRecordingPermissions: false
+        haveRecordingPermissions: false,
+        //soundplaying
+        soundplaying: false
     };
     countDownTimer = null;
 
@@ -135,37 +137,45 @@ class VideoPage extends React.Component {
         this.setState({
         haveRecordingPermissions: response.status === "granted",
         });
-        
-        // if ({ statusAudio } == 'granted') {
-
-        //      let audioResponse = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-        //      if (audioResponse.status == 'granted'){
-        //      this.setState({ permissionsGranted: true });
     
-        //     }
-        // }
     }
     
  
 
     async playSound() {
-        const soundObject = new Audio.Sound();
-        try {
-            await soundObject.loadAsync(require("../../assets/audio/tone.wav"));
-            await soundObject.playAsync();
-        } catch (error) {
-        }
+        
+            const soundObject = new Audio.Sound();
+            try {
+                await soundObject.loadAsync(require("../../assets/audio/tone.wav"));
+                await soundObject.playAsync();
+            } catch (error) {}
+        
     }
 
     async playSound36() {
-        const soundObject = new Audio.Sound();
-        try {
-            await soundObject.loadAsync(require("../../assets/audio/audioclip.wav"));
-            await soundObject.playAsync();
-            setTimeout(() => {
-                this.playSound();
-            }, 53000);
-        } catch (error) { }
+
+        if (this.state.soundplaying === false) {
+            console.log("if1 soundplaying : ",this.state.soundplaying)
+            const soundObject = new Audio.Sound();
+            try {
+                await soundObject.loadAsync(require("../../assets/audio/audioclip.wav"));
+                await soundObject.playAsync();
+                setTimeout(() => {
+                    this.playSound();
+                }, 53000);
+                 this.setState({
+                    soundplaying: true
+                 })
+                 console.log("if2 soundplaying : ",this.state.soundplaying)
+            } catch (error) { }
+        }
+        else {
+            console.log("else soundplaying : ",this.state.soundplaying)
+            soundObject.stopAsync()
+            this.setState({
+                soundplaying: false
+             })
+        }
     }
 
     async playSoundTH() {
@@ -187,15 +197,17 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
-    
-
-        //console.log("comdid:",this.camera)
-
-        //let video = this.camera.recordAsync();
-        //console.log("compodd",video)
-
-       
     }
+    // playSound = async () => {
+       
+    //     try{
+    //       await this.soundObject.playAsync();
+    //     }catch(error){
+    //       this.createSound()
+    //       await this.soundObject.playAsync();
+    //     }
+    // }
+
 
     startRunningTime = () => {
         if (this.props.VideoReducer.element.isVad) {
@@ -271,12 +283,12 @@ class VideoPage extends React.Component {
         
 
         if (
+            this.props.VideoReducer.command_num == 8 ||
             this.props.VideoReducer.command_num == 9 ||
             this.props.VideoReducer.command_num == 10 ||
             this.props.VideoReducer.command_num == 11 ||
             this.props.VideoReducer.command_num == 12 ||
-            this.props.VideoReducer.command_num == 13 ||
-            this.props.VideoReducer.command_num == 14
+            this.props.VideoReducer.command_num == 13 
         ) {
             this.setState({
                 runningTime: false,
@@ -378,6 +390,7 @@ class VideoPage extends React.Component {
     };
 
     renderValidate1 = () => {
+    if (this.props.VideoReducer.command_num == 3 ) {
     console.log("เล่าเพิ่มอีกนิดนะคะ")
         setTimeout(() => {
             this.renderValidate2()
@@ -385,15 +398,33 @@ class VideoPage extends React.Component {
                 alerttext: "เล่าเพิ่มอีกนิดนะคะ"
             }) 
         }, 20000);
+        }
     }
     renderValidate2 = () => {
         console.log("ช่วยเล่ารายละเอียดหน่อยค่ะ")
         setTimeout(() => {
-            this.renderValidate2()
+            this.renderValidate3()
             this.setState({
                 alerttext: "ช่วยเล่ารายละเอียดหน่อยค่ะ"
             }) 
         }, 40000);
+    }
+    renderValidate3 = () => {
+        console.log("เล่าเพิ่มอีกนิดนะคะ")
+            setTimeout(() => {
+                this.renderValidate4()
+                this.setState({
+                    alerttext: "เล่าเพิ่มอีกนิดนะคะ"
+                }) 
+            }, 60000);
+    }
+    renderValidate3 = () => {
+        console.log("เล่าเพิ่มอีกนิดนะคะ")
+            setTimeout(() => {
+                this.setState({
+                    alerttext: "เล่าเพิ่มอีกนิดนะคะ"
+                }) 
+            }, 80000);
     }
 
     renderMark = () => {
@@ -526,7 +557,7 @@ class VideoPage extends React.Component {
                         )
                            }
                            {/* {element.isVad ? (this.renderValidate1()) : null} */}
-                        <Text style={{color:'red', fontSize: 24, marginTop:10}}>{this.state.alerttext}</Text>
+                        <Text style={{color:'red', fontSize: 20, marginTop:10}}>{this.state.alerttext}</Text>
                        
                     </View>
 

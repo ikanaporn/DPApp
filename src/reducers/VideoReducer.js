@@ -3,7 +3,7 @@ import { NEXT_COMMAND, END_TEST, BACK_COMMAND } from "../constants";
 import VideoInitial from "./VideoInitial";
 import { State } from "react-native-gesture-handler";
 
-var num = 0;
+var num = 8;
 var prog = 0;
 const INITIAL_STATE = {
     command_num: num,
