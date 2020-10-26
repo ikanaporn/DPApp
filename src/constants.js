@@ -23,6 +23,8 @@ export const NavigationName = {
     ViewBasicQuestion: "แก้ไขข้อมูลพื้นฐาน",
     ViewHamiltonQuestion: "แก้ไขแบบวัด HAMILTON",
     ViewPHQ9Question: "แก้ไขแบบประเมิน PHQ9",
+    ScoreHamilton: "คะแนน HAMILTON",
+    ScorePHQ9: "คะแนน PHQ9",
     VideoPage: "วิดีโอ",
     VideoHelpPage: "คำแนะนำ",
     //MainPage: "หน้าหลัก",

@@ -19,6 +19,8 @@ import ViewAdminQuestion from './components/ViewAdminQuestion';
 import ViewBasicQuestion from './components/ViewBasicQuestion';
 import ViewHamiltonQuestion from './components/ViewHamiltonQuestion';
 import ViewPHQ9Question from './components/ViewPHQ9Question';
+import ScoreHamilton from './components/ScoreHamilton';
+import ScorePHQ9 from './components/ScorePHQ9';
 import VideoPage from './components/VideoPage';
 import VideoHelpPage from './components/VideoHelpPage';
 //import VideoRenderPage from './components/VideoRenderPage';
@@ -69,7 +71,6 @@ class Main extends React.Component {
                         name={NavigationName.BasicQuestion}
                         component={BasicQuestion}
                         options={{
-                            title: 'ข้อมูลพื้นฐาน',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
@@ -80,7 +81,6 @@ class Main extends React.Component {
                         name={NavigationName.HamiltonQuestion}
                         component={HamiltonQuestion}
                         options={{
-                            title: 'แบบวัด HAMILTON',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
@@ -91,7 +91,6 @@ class Main extends React.Component {
                         name={NavigationName.PHQ9Question}
                         component={PHQ9Question}
                         options={{
-                            title: 'แบบประเมิน PHQ9',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
@@ -164,6 +163,24 @@ class Main extends React.Component {
                     <Stack.Screen
                         name={NavigationName.ViewPHQ9Question}
                         component={ViewPHQ9Question}
+                        options={{
+                            headerStyle: [styles.headerStyle,],
+                            headerTintColor: 'white',
+                            headerTitleStyle: [styles.headerTitleStyle,],
+                        }}
+                    />
+                    <Stack.Screen
+                        name={NavigationName.ScoreHamilton}
+                        component={ScoreHamilton}
+                        options={{
+                            headerStyle: [styles.headerStyle,],
+                            headerTintColor: 'white',
+                            headerTitleStyle: [styles.headerTitleStyle,],
+                        }}
+                    />
+                    <Stack.Screen
+                        name={NavigationName.ScorePHQ9}
+                        component={ScorePHQ9}
                         options={{
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
