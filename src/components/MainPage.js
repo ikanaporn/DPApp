@@ -22,16 +22,15 @@ class MainPage extends React.Component {
                             });
                         }}
                     >
-                        <Image
-                            source={require("../../assets/img/doctor.png")}
-                            resizeMode="contain"
-                            style={{ flex: 1 }}
-                        />
-                        <Text style={styles.text}>สำหรับผู้เก็บข้อมูล</Text>
+                        <View style={{ flex: 1 }}>
+                            <Image
+                                source={require("../../assets/img/doctor.png")}
+                                resizeMode="contain"
+                                style={{ flex: 1 }}
+                            />
+                            <Text style={styles.text}>สำหรับผู้เก็บข้อมูล</Text>
+                        </View>
                     </TouchableOpacity>
-
-
-
                     <TouchableOpacity style={[styles.button, {},]}
                         onPress={() => {
                             this.props.navigation.navigate(NavigationName.ListVolunteerPage, {
@@ -45,7 +44,6 @@ class MainPage extends React.Component {
                         />
                         <Text style={styles.text}>อาสาสมัครวิจัย</Text>
                     </TouchableOpacity>
-
                     <TouchableOpacity style={[styles.button, {},]}
                         onPress={() => {
                             //     this.props.navigation.navigate(NavigationName.ListVolunteerPage, {
