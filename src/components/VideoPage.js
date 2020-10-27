@@ -280,10 +280,6 @@ class VideoPage extends React.Component {
             this.renderValidate1()
         }
         if (this.props.VideoReducer.command_num == 0) {
-<<<<<<< HEAD
-            //this.recordVideo();
-=======
->>>>>>> 1c1196d2a0e5c900ed6aee1e35dd0bd9b57398c8
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
