@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-    Dimensions
+    Dimensions,
+    
 } from "react-native";
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from "expo-camera";
@@ -20,6 +21,7 @@ import { YellowBox } from "react-native";
 import _ from "lodash";
 
 import Timer from "./Timer";
+import Timer2 from "./Timer2";
 import { NextCommand, BackCommand } from "../actions/VideoAction";
 import {
     timerNext,
@@ -32,6 +34,8 @@ import { bar, } from "../constants"
 import ProgressBar from './ProgressBar';
 import VideoReducer from "../reducers/VideoReducer";
 //import { styles } from '../css';
+import CountDown from 'react-native-countdown-component';
+import moment from 'moment';
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
@@ -53,6 +57,7 @@ var duratioin_sound2 = 0;
 const button_back_text = 'ย้อนกลับ';
 var self;
 
+
 class VideoPage extends React.Component {
 
 
@@ -63,15 +68,18 @@ class VideoPage extends React.Component {
 
     state = {
         runningTime: false,
+        runningTime2: true,
         disabledTouchableOpacityStart: false,
         disabledTouchableOpacityStop: true,
         disabledTouchableOpacityNext: true,
         disabledTouchableOpacityBack: false,
         countdownStart: 120,
+        countdownStart2: 10, 
         uniqueValue: 1,
         isEnd: false,
         timeout1: null,
         timeout2: null,
+        
         //camera
         hasCameraPermission: null,
         faceDetecting: false, //when true, we look for faces
@@ -90,7 +98,10 @@ class VideoPage extends React.Component {
         //setRecording: false
         haveRecordingPermissions: false,
         //audio
-        soundplaying: false
+        soundplaying: false,
+        countdownShow: false,
+
+
     };
     countDownTimer = null;
 
@@ -115,6 +126,7 @@ class VideoPage extends React.Component {
             disabledTouchableOpacityNext: true,
             disabledTouchableOpacityBack: true,
             countdownStart: 120,
+            countdownStart2: 10,
             uniqueValue: 1,
             progress: 0.2,
             isEnd: false,
@@ -188,11 +200,24 @@ class VideoPage extends React.Component {
         timeout_instruct = setTimeout(async () => {
             await sound1.stopAsync();
             console.log("timeouttttttttttttttttttttt");
+            
+            // this.setState({
+            //     countdownShow: true
+            // })
             // Set Timer
+            //this.renderTimerCountdown()
+            // <View>
+            //      <Timer2
+            //     runningTime={this.state.runningTime2}
+            //     countdownStart={this.state.countdownStart2}
+                
+            // />
+            // </View>
 
             self.setState({
                 popup_text: self.props.VideoReducer.element.data,
                 is_hided_speaker: false,
+                countdownShow: true,
             });
             timeout10s = setTimeout(async () => {
                 await sound2.stopAsync();
@@ -201,6 +226,7 @@ class VideoPage extends React.Component {
         }, duratioin_sound1);
     }
 
+  
     async sound2_play() {
         sound2.stopAsync();
         await sound2.playAsync();
@@ -254,7 +280,7 @@ class VideoPage extends React.Component {
             this.renderValidate1()
         }
         if (this.props.VideoReducer.command_num == 0) {
-            this.recordVideo();
+            //this.recordVideo();
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
@@ -286,7 +312,7 @@ class VideoPage extends React.Component {
                 this.setState({
                     runningTime: true,
                     disabledTouchableOpacityStart: true,
-                    disabledTouchableOpacityStop: true,
+                    disabledTouchableOpacityStop: false,
                     disabledTouchableOpacityNext: true,
                     disabledTouchableOpacityBack: false,
                     countdownStart: 15,
@@ -380,6 +406,9 @@ class VideoPage extends React.Component {
         this.setState(({ uniqueValue }) => ({
             uniqueValue: uniqueValue + 1,
         }));
+        this.setState({
+            countdownShow: false
+        })
 
         if (
             this.props.VideoReducer.command_num == 8 ||
@@ -394,7 +423,7 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityStart: false,
                 disabledTouchableOpacityStop: true,
                 disabledTouchableOpacityNext: true,
-                disabledTouchableOpacityBack: false,
+                disabledTouchableOpacityBack: true,
                 countdownStart: 60,
             });
         }
@@ -408,7 +437,18 @@ class VideoPage extends React.Component {
                 console.log("Video not record")
             }
         }
+        else if (this.props.VideoReducer.command_num == 14) {
+            console.log("isAudio :",this.props.VideoReducer.command_num  )
+            this.setState({
+                runningTime: false,
+                disabledTouchableOpacityStart: false,
+                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityNext: true,
+                disabledTouchableOpacityBack: true,
+            });
+        }
         else {
+
             if (this.props.VideoReducer.command_num == 0) {
                 console.log("0 == state NextRunningTime num : ",this.props.VideoReducer.command_num)
                 this.setState({
@@ -416,7 +456,7 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStart: false,
                     disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
-                    disabledTouchableOpacityBack: false,
+                    disabledTouchableOpacityBack: true,
                     countdownStart: 15,
                 });
             } else if (this.props.VideoReducer.command_num == 1) {
@@ -426,7 +466,7 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStart: false,
                     disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
-                    disabledTouchableOpacityBack: false,
+                    disabledTouchableOpacityBack: true,
                     countdownStart: 120,
                 });
             }
@@ -438,7 +478,7 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStart: false,
                     disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
-                    disabledTouchableOpacityBack: false,
+                    disabledTouchableOpacityBack: true,
                     countdownStart: 120,
                 });
             }
@@ -456,7 +496,10 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityBack: true,
                 //countdownStart: 120
             });
-        }else {
+        }
+       
+        
+        else {
             this.setState({
             disabledTouchableOpacityNext: false,
             disabledTouchableOpacityStart: true,
@@ -466,6 +509,18 @@ class VideoPage extends React.Component {
         });
         }
     };
+
+    onFinishTimer2 = () => {
+        console.log(" onFinishTimer2")
+            this.setState({
+                disabledTouchableOpacityNext: true,
+                disabledTouchableOpacityStart: false,
+                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityBack: true,
+                //countdownStart: 120
+            });
+    };
+    
 
     handleFaceDetectionError = () => {
     };
@@ -614,8 +669,8 @@ class VideoPage extends React.Component {
                 </View>
                 <View style={{ flex: 0.97 }}>
 
-                    <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10,marginTop:2 }}>
-                        <View key={this.state.uniqueValue} style={{ flex: 0.07, alignItems: 'flex-end', flexDirection: 'column-reverse' }}>
+                    <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10,marginTop:4 }}>
+                        <View key={this.state.uniqueValue} style={{ flex: 0.07, alignItems: 'flex-end', flexDirection: 'column-reverse'  }}>
                             <Timer
                                 runningTime={this.state.runningTime}
                                 countdownStart={this.state.countdownStart}
@@ -644,6 +699,21 @@ class VideoPage extends React.Component {
                                 : (element.isAudio ?
                                     <View style={{ flex: 1 }}>
                                         <View style={{ flex: 1, justifyContent: 'center' }}>
+                                            <View style={{ flex: 0.3, justifyContent: 'center' }}>
+                                            {this.state.countdownShow ? 
+                                                <View key={this.state.uniqueValue} style={{ flex: 0.07, alignItems: 'center', paddingVertical: 30  }}>
+                                                <Timer2
+                                                    runningTime={true}
+                                                    countdownStart={10}
+                                                    //onFinishTimer2={this.onFinishTimer2}
+                                                />
+                                                {this.onFinishTimer2}
+                                                </View>
+                                                
+                                            :
+                                            null}
+                                            </View>
+                                            <View style={{ flex: 0.7, justifyContent: 'center' }}>
                                             {this.state.is_hided_speaker ?
                                                 <TouchableOpacity
                                                     style={{ flex: 1, alignItems: 'center' }}
@@ -660,6 +730,8 @@ class VideoPage extends React.Component {
                                                     {this.state.popup_text != "" ? this.state.popup_text : null}
                                                 </Text>
                                             }
+                                            
+                                        </View>
                                         </View>
                                     </View> :
                                     (this.props.VideoReducer.command_num == 2 ? (

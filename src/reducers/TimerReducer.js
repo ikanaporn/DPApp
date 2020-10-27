@@ -27,6 +27,18 @@ export default (state = INITIAL_STATE,action) => {
                     limit: 60 * 0 + 0
     
                 }
+        case TIMER_START2:
+                return {
+                    ...state,
+                    limit: 10
+        
+                }
+        case TIMER_NEXT2:
+                return {
+                    ...state,
+                    limit: 10
+            
+                }
         default:
             return state
                 
