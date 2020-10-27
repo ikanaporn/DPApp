@@ -17,7 +17,7 @@ class VolunteerPage extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                    <View style={{ flex: 0.4, flexDirection: 'row' }}>
+                    <View style={{ flex: 0.4, flexDirection: 'row', justifyContent: 'center' }}>
                         <TouchableOpacity style={[styles.button, {},]}
                             onPress={() => {
                                 this.props.navigation.navigate(NavigationName.BasicQuestion, {
@@ -25,12 +25,14 @@ class VolunteerPage extends React.Component {
                                 })
                             }}
                         >
-                            <Image
-                                source={require("../../assets/img/info.png")}
-                                resizeMode="center"
-                                style={{ flex: 1, height: '110%' }}
-                            />
-                            <Text>ข้อมูลพื้นฐาน</Text>
+                            <View style={{ flex: 1 }}>
+                                <Image
+                                    source={require("../../assets/img/info.png")}
+                                    resizeMode="contain"
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+                            <Text style={[styles.buttonText, {}]}>ข้อมูลพื้นฐาน</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {},]}
                             onPress={() => {
@@ -39,15 +41,17 @@ class VolunteerPage extends React.Component {
                                 })
                             }}
                         >
-                            <Image
-                                source={require("../../assets/img/hamilton.png")}
-                                resizeMode="contain"
-                                style={{ flex: 1 }}
-                            />
-                            <Text>แบบวัด HAMILTON</Text>
+                            <View style={{ flex: 1 }}>
+                                <Image
+                                    source={require("../../assets/img/hamilton.png")}
+                                    resizeMode="contain"
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+                            <Text style={[styles.buttonText, {}]}>แบบวัด HAMILTON</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 0.4, flexDirection: 'row' }}>
+                    <View style={{ flex: 0.4, flexDirection: 'row', justifyContent: 'center' }}>
                         <TouchableOpacity style={[styles.button, {},]}
                             onPress={() => {
                                 this.props.navigation.navigate(NavigationName.PHQ9Question, {
@@ -55,12 +59,14 @@ class VolunteerPage extends React.Component {
                                 })
                             }}
                         >
-                            <Image
-                                source={require("../../assets/img/phq9.png")}
-                                resizeMode="contain"
-                                style={{ flex: 1 }}
-                            />
-                            <Text>แบบประเมิน PHQ-9</Text>
+                            <View style={{ flex: 1 }}>
+                                <Image
+                                    source={require("../../assets/img/phq9.png")}
+                                    resizeMode="contain"
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+                            <Text style={[styles.buttonText, {}]}>แบบประเมิน PHQ-9</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {},]}
                             onPress={() => {
@@ -69,26 +75,30 @@ class VolunteerPage extends React.Component {
                                 })
                             }}
                         >
-                            <Image
-                                source={require("../../assets/img/video.png")}
-                                resizeMode="contain"
-                                style={{ flex: 1 }}
-                            />
-                            <Text>ประเมินด้วยวิดีโอ</Text>
+                            <View style={{ flex: 1 }}>
+                                <Image
+                                    source={require("../../assets/img/video.png")}
+                                    resizeMode="contain"
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+                            <Text style={[styles.buttonText, {}]}>ประเมินด้วยวิดีโอ</Text>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={[styles.button, { flex: 0.2, },]}
+                    <TouchableOpacity style={[styles.button, { flex: 0.2, width: '94%' },]}
                         onPress={() => {
                             this.props.navigation.goBack();
                             this.props.navigation.goBack();
                         }}
                     >
-                        <Image
-                            source={require("../../assets/img/home.png")}
-                            resizeMode="contain"
-                            style={{ flex: 1 }}
-                        />
-                        <Text>กลับสู่หน้าหลัก</Text>
+                        <View style={{ flex: 1 }}>
+                            <Image
+                                source={require("../../assets/img/home.png")}
+                                resizeMode="contain"
+                                style={{ flex: 1 }}
+                            />
+                        </View>
+                        <Text style={[styles.buttonText, {}]}>กลับสู่หน้าหลัก</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -115,20 +125,21 @@ export const styles = StyleSheet.create({
         borderColor: color1[1],
         borderWidth: 1,
         borderRadius: 8,
-        marginTop: 10,
-        marginBottom: 10,
+        margin: 5,
+        padding: 5,
         width: "90%",
         flex: 0.48,
-        marginLeft: 20,
         alignSelf: 'center',
         justifyContent: "center",
         alignItems: 'center',
         fontWeight: 'bold',
     },
     buttonText: {
-        fontSize: 17,
         textAlign: "center",
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        color: "#595959",
+        fontSize: 17,
+        fontWeight: "bold",
     },
 });
 
