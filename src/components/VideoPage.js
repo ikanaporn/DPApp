@@ -348,7 +348,7 @@ class VideoPage extends React.Component {
             var origin = faces[0].bounds.origin;
             var size = faces[0].bounds.size;
 
-            var max_x = win_width / 2;
+            var max_x = win_width / 2.3;
             var max_y = win_height / 5;
             if (
                 lEar.x < 0 || lEar.y < 0 ||
