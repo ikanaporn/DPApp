@@ -78,7 +78,7 @@ export default class Questionnaire extends Component {
     async save_question(Reducer, ReducerName, selected_index, select_multiple_index, text_data) {
         if (ReducerName === "AdminReducer") {
             if (Reducer.question_id == 0) {
-                text_data = text_data == "" ? this.state.text_data : text_data;
+                text_data = typeof text_data === "undefined" ? this.state.text_data : text_data;
             }
         }
         var question = Reducer.question;
@@ -592,7 +592,7 @@ export default class Questionnaire extends Component {
                 alignItems: 'center',
                 justifyContent: 'center',
             }]}>
-                <View style={[styles.box2, { justifyContent: 'center' }]}>
+                <View style={[styles.box2, { justifyContent: this.state.isScrollable ? 'center' : 'flex-start' }]}>
                     {this.state.isScrollable ? bar : null}
                     <Text style={styles.contentText}>
                         {Reducer.question.question}
