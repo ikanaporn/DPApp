@@ -839,7 +839,7 @@ class VideoPage extends React.Component {
                     </View>
 
                     <View style={{ flex: 0.3, flexDirection: 'row' }}>
-                        <View style={{ flex: 1, margin: 10, padding: 10 }}>
+                        <View style={{ flex: 1, margin: 5, padding: 10 }}>
                             <Camera
                                 ref={ref => this.camera = ref}
                                 style={{ flex: 1, position: "relative" }}
@@ -928,6 +928,15 @@ class VideoPage extends React.Component {
                                     source={require("../../assets/img/stop.png")}
                                 />
                                 {" "}เมื่อทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด{"\n"}
+                                - กด{" "}
+                                <Image
+                                    style={{
+                                        width: 70 * 0.4,
+                                        height: 50 * 0.4,
+                                    }}
+                                    source={require("../../assets/img/back.png")}
+                                />
+                                {" "}เพื่อย้อนกลับ{"\n"}
                                 - กด{" "}
                                 <Image
                                     style={{

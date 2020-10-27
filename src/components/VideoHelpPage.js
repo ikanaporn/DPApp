@@ -53,11 +53,21 @@ class VideoHelpPage extends React.Component {
                                     width: 70,
                                     height: 50,
                                 }}
+                                source={require("../../assets/img/back.png")}
+                            />
+                            {" "}เพื่อย้อนกลับ{"\n"}
+                            - กด{" "}
+                            <Image
+                                style={{
+                                    width: 70,
+                                    height: 50,
+                                }}
                                 source={require("../../assets/img/next.png")}
                             />
-                            {" "}เพื่อไปยังข้อถัดไป{"\n"}
-                            - สัญญาณเสียงเริ่ม คือเสียง
+                            {" "}เพื่อไปยังข้อถัดไป{"\n"}{"\n"}
+                            - สัญญาณเสียงเริ่ม คือเสียง{"\n"}
                         </Text>
+                        
                         <TouchableOpacity
                             style={{
                                 width: 50,
@@ -72,9 +82,12 @@ class VideoHelpPage extends React.Component {
                                 }}
                                 source={require("../../assets/img/volume.png")}
                             />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 16, }}>
+                       
+                        </TouchableOpacity> 
+                        
+                        <Text style={{ fontSize: 16, justifyContent: 'center' }}>
                             {" "}(กดรูปลำโพงเพื่อลองฟังเสียง){"\n"}
+                        
                             - ต่อไปนี้จะเป็นแบบทดสอบที่ท่านจะถูกบันทึกภาพและเสียง เมื่อใบหน้าของท่านไม่อยู่ในกรอบจะมีสัญญาณเตือน ขอให้ท่านขยับใบหน้าให้อยู่ในบริเวณเส้นประที่กำหนด{"\n"}
                             - ใบหน้าของท่านจะถูกปิดด้วยแถบสีเทา
                         </Text>
