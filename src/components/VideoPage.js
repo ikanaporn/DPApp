@@ -39,6 +39,7 @@ console.warn = (message) => {
     }
 };
 const win_height = Dimensions.get('window').height;
+const win_width = Dimensions.get('window').width;
 
 var timeout10s, timeout1, timeout2;
 const file_sound1 = '../../assets/audio/audioclip.wav';
@@ -315,6 +316,48 @@ class VideoPage extends React.Component {
 
     handleFacesDetected = async ({ faces }) => {
         if (faces.length === 1) {
+            var lEar = faces[0].leftEarPosition;
+            var rEar = faces[0].rightEarPosition;
+            var lEye = faces[0].leftEyePosition;
+            var rEye = faces[0].rightEyePosition;
+            var lCheek = faces[0].leftCheekPosition;
+            var rCheek = faces[0].rightCheekPosition;
+            var lMouth = faces[0].leftMouthPosition;
+            var rMouth = faces[0].rightMouthPosition;
+            var nose = faces[0].noseBasePosition;
+            var origin = faces[0].bounds.origin;
+            var size = faces[0].bounds.size;
+
+            var max_x = win_width / 2;
+            var max_y = win_height / 5;
+            if (
+                lEar.x < 0 || lEar.y < 0 ||
+                rEar.x < 0 || rEar.y < 0 ||
+                lEye.x < 0 || lEye.y < 0 ||
+                rEye.x < 0 || rEye.y < 0 ||
+                lCheek.x < 0 || lCheek.y < 0 ||
+                rCheek.x < 0 || rCheek.y < 0 ||
+                lMouth.x < 0 || lMouth.y < 0 ||
+                rMouth.x < 0 || rMouth.y < 0 ||
+                nose.x < 0 || nose.y < 0 ||
+                origin.x < 0 || origin.y < 0 ||
+
+                lEar.x > max_x || lEar.y > max_y ||
+                rEar.x > max_x || rEar.y > max_y ||
+                lEye.x > max_x || lEye.y > max_y ||
+                rEye.x > max_x || rEye.y > max_y ||
+                lCheek.x > max_x || lCheek.y > max_y ||
+                rCheek.x > max_x || rCheek.y > max_y ||
+                lMouth.x > max_x || lMouth.y > max_y ||
+                rMouth.x > max_x || rMouth.y > max_y ||
+                nose.x > max_x || nose.y > max_y ||
+                (origin.x + size.width) > max_x || (origin.y + size.height) > max_y
+            ) {
+                this.sound2_play();
+                this.setState({ faceDetected: false });
+                this.cancelCountDown();
+                return null;
+            }
             this.setState({
                 faces,
                 faceDetected: true,
@@ -379,22 +422,6 @@ class VideoPage extends React.Component {
         }, 40000);
     }
 
-    renderMark = () => {
-        return (
-            <View>
-                <Image
-                    style={{
-                        alignSelf: "center",
-                        width: "100%",
-                        height: "100%",
-
-                    }}
-                    source={require("../../assets/img/camera/output.png")}
-                ></Image>
-            </View>
-        );
-    };
-
     recordVideo = async () => {
         console.log("state:", this.state.recording)
         this.setState({
@@ -402,6 +429,7 @@ class VideoPage extends React.Component {
         });
         console.log("recording")
         await this.camera.recordAsync({ quality: '4:3' }).then((file) => {
+            console.log("Video has been recorded");
             console.log("file", file.uri)
             const asset = MediaLibrary.createAssetAsync(file.uri);
         });
@@ -442,9 +470,7 @@ class VideoPage extends React.Component {
                             <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                                 {element.inst}
                             </Text>
-
                         </View>
-
 
                         <View style={{ flex: 0.55, justifyContent: 'center', alignItems: 'center' }}>
                             {element.isImage ?
@@ -566,11 +592,12 @@ class VideoPage extends React.Component {
                                 faceDetectorSettings={{
                                     mode: FaceDetector.Constants.Mode.fast,
                                     detectLandmarks: FaceDetector.Constants.Landmarks.all,
-                                    runClassifications:
-                                        FaceDetector.Constants.Classifications.all,
+                                    runClassifications: FaceDetector.Constants.Classifications.all,
                                     tracking: true,
                                 }}
-                                onCameraReady={() => { this.setState({ ready: true }) }}
+                                onCameraReady={async () => {
+                                    this.setState({ ready: true })
+                                }}
                             >
                                 <View
                                     style={{
@@ -611,7 +638,17 @@ class VideoPage extends React.Component {
                                         ]}
                                     ></BlurView>
                                 ) : null}
-                                {this.renderMark()}
+                                <View style={{ flex: 1, }}>
+                                    <Image
+                                        style={{
+                                            alignSelf: "center",
+                                            width: "100%",
+                                            height: "100%",
+                                            resizeMode: 'stretch',
+                                        }}
+                                        source={require("../../assets/img/camera/output.png")}
+                                    ></Image>
+                                </View>
                             </Camera>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
@@ -650,52 +687,13 @@ class VideoPage extends React.Component {
             </View>
         )
     }
-
-
-
-
-
 }
 
 
 const styles = StyleSheet.create({
-    contentHelp: {
-        backgroundColor: '#ffffff',
-        //marginLeft: '60%',
-        //flexDirection: 'row',
-        flex: 0.5
-
-    },
-    contentlower: {
-        height: '36%',
-        width: '95%',
-        backgroundColor: '#83B8A2',
-        marginLeft: '0%',
-        marginRight: '0%',
-        flexDirection: 'row-reverse',
-
-
-    },
-    containers: {
-        height: "90%",
-        width: "48%",
-        backgroundColor: "black",
-        justifyContent: "space-around",
-        marginHorizontal: '5%',
-        borderRadius: 8,
-        marginTop: '3%',
-        flex: 0.5
-
-
-    },
     container: {
         backgroundColor: "#83B8A2",
         flex: 1,
-    },
-    helpcard: {
-        backgroundColor: '#ffffff',
-        marginLeft: 20,
-        //marginTop: '95%'
     },
     buttonText: {
         fontSize: 16,
@@ -723,14 +721,6 @@ const styles = StyleSheet.create({
         height: 42,
         justifyContent: "space-around",
         justifyContent: "center",
-    },
-    contentText: {
-        fontSize: 18,
-        alignSelf: "center",
-        marginHorizontal: 0,
-        alignItems: 'center'
-        //textAlignVertical: 'center'
-        //marginTop: '-42%'
     },
     buttonStart: {
         backgroundColor: "#00C851",
@@ -772,69 +762,18 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: "center",
     },
-    preview: {
-        flex: 1,
-        justifyContent: "flex-end",
-        alignItems: "center",
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: "#fff",
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: "center",
-        margin: 20,
-        padding: 20,
-    },
     textStandard: {
         fontSize: 12,
         marginBottom: 10,
         color: "white",
     },
-    countdown: {
-        fontSize: 40,
-        color: "white",
-    },
-    facesContainer: {
-        position: "absolute",
-        bottom: 0,
-        right: 0,
-        left: 0,
-        top: 0,
-    },
     face: {
-        //padding: 10,
         borderWidth: 10,
-        // borderRadius: 2,
         position: "absolute",
         borderColor: "#FFD700",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
-
-    faceText: {
-        color: "#FFD700",
-        fontWeight: "bold",
-        textAlign: "center",
-        margin: 10,
-        padding: 10,
-        backgroundColor: "transparent",
-    },
-    containerAlert: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#ecf0f1",
-    },
-    buttonCard: {
-        marginTop: '12%'
-    },
-    buttonCardSound: {
-        marginTop: '-45%'
-    }
-
 });
-
 
 const mapStateToProps = (state) => ({
     VideoReducer: state.VideoReducer,
