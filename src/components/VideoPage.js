@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Card } from "react-native-elements";
+import React from "react";
 import { connect } from "react-redux";
 import {
     StyleSheet,
@@ -11,36 +10,26 @@ import {
     ScrollView,
     Dimensions
 } from "react-native";
-//import { MediaLibrary } from "expo";
 import * as MediaLibrary from 'expo-media-library';
-import { DeviceMotion } from "expo-sensors";
 import { Camera } from "expo-camera";
-//import { BlurView } from "@react-native-community/blur";
 import { BlurView } from "expo-blur";
 import * as FaceDetector from "expo-face-detector";
 import * as Permissions from "expo-permissions";
-
 import { Audio } from "expo-av";
+import { YellowBox } from "react-native";
+import _ from "lodash";
 
 import Timer from "./Timer";
-import EmptyScreen from "./EmptyScreen";
-
-import { NextCommand, BackCommand } from "../actions/VideoAction";
-
+import { NextCommand } from "../actions/VideoAction";
 import {
     timerNext,
     timerStart,
     timerRetry,
     timerStop,
 } from "../actions/TimerActions";
-import * as FileSystem from 'expo-file-system';
 
-import { YellowBox } from "react-native";
-import _ from "lodash";
-import { throwIfAudioIsDisabled } from "expo-av/build/Audio/AudioAvailability";
 import { bar, } from "../constants"
 import ProgressBar from './ProgressBar';
-import { initialState, color_ProgreesBar } from './QuestionInitialState';
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
@@ -49,54 +38,21 @@ console.warn = (message) => {
         _console.warn(message);
     }
 };
-//const [recording, setRecording] = useState(false)
 const win_height = Dimensions.get('window').height;
-var ReducerName = 'VideoReducer';
+
+var timeout10s, timeout1, timeout2;
+const file_sound1 = '../../assets/audio/audioclip.wav';
+const file_sound2 = '../../assets/audio/tone.wav';
+var sound1 = new Audio.Sound();
+var sound2 = new Audio.Sound();
+var duratioin_sound1 = 0;
+var duratioin_sound2 = 0;
 
 class VideoPage extends React.Component {
-
-
-    static defaultProps = {
-        countDownSeconds: 5,
-        cameraType: Camera.Constants.Type.front, //front vs rear facing camera
-    };
-
-    state = {
-        runningTime: false,
-        disabledTouchableOpacityStart: false,
-        disabledTouchableOpacityStop: true,
-        disabledTouchableOpacityNext: true,
-        countdownStart: 120,
-        uniqueValue: 1,
-        progress: 0.2,
-        isEnd: false,
-        timeout1: null,
-        timeout2: null,
-        //camera
-        hasCameraPermission: null,
-        faceDetecting: false, //when true, we look for faces
-        faceDetected: false, //when true, we've found a face
-        countDownSeconds: 5, //current available seconds before photo is taken
-        countDownStarted: false, //starts when face detected
-        faceID: 0,
-        rollAngle: 0,
-        yawAngle: 0,
-        bounds: { origin: { x: 0, y: 0 }, size: { width: 0, height: 0 } },
-        noOfpic: 33, // no 33 is no.1 of pic in set
-        faces: [],
-        ready: false,
-        //recording
-        recording: true,
-        //setRecording: false
-        haveRecordingPermissions: false,
-        //soundplaying
-        soundplaying: false
-    };
-    countDownTimer = null;
-
     constructor(props) {
         super(props);
         this.checkPermissions();
+        this.load_sound();
         this.props.navigation.setOptions({
             title: "แบบทดสอบผ่านแอปพลิเคชัน",
             headerStyle: {
@@ -106,16 +62,42 @@ class VideoPage extends React.Component {
             headerTitleStyle: { color: "#fff" },
             headerBackTitle: " ",
         });
-
-        // this.takeFilm = this.takeFilm.bind(this)
-        // this.state = {permissionsGranted:false,bcolor:'red'}
+        this.state = {
+            runningTime: false,
+            disabledTouchableOpacityStart: false,
+            disabledTouchableOpacityStop: true,
+            disabledTouchableOpacityNext: true,
+            countdownStart: 120,
+            uniqueValue: 1,
+            progress: 0.2,
+            isEnd: false,
+            //camera
+            hasCameraPermission: null,
+            faceDetecting: false, //when true, we look for faces
+            faceDetected: false, //when true, we've found a face
+            countDownSeconds: 5, //current available seconds before photo is taken
+            countDownStarted: false, //starts when face detected
+            faceID: 0,
+            rollAngle: 0,
+            yawAngle: 0,
+            bounds: { origin: { x: 0, y: 0 }, size: { width: 0, height: 0 } },
+            noOfpic: 33, // no 33 is no.1 of pic in set
+            faces: [],
+            ready: false,
+            //recording
+            recording: true,
+            haveRecordingPermissions: false,
+            //soundplaying
+            soundplaying: false,
+        };
     }
 
-    setCameraRef = (ref) => {
-        //    this.setState({cameraRef:ref});
-        //    let video = ref.recordAsync();
-        console.log("veide", ref)
-    }
+    static defaultProps = {
+        countDownSeconds: 5,
+        cameraType: Camera.Constants.Type.front, //front vs rear facing camera
+    };
+
+    countDownTimer = null;
 
     async checkPermissions() {
         console.log("checkPermissions")
@@ -127,7 +109,6 @@ class VideoPage extends React.Component {
             this.setState({ showCamera: true });
         }
 
-        //const { status: statusAudio } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         this.setState({
             haveRecordingPermissions: response.status === "granted",
@@ -135,52 +116,36 @@ class VideoPage extends React.Component {
 
     }
 
-
-
-    async playSound() {
-
-        const soundObject = new Audio.Sound();
+    async load_sound() {
         try {
-            await soundObject.loadAsync(require("../../assets/audio/tone.wav"));
-            await soundObject.playAsync();
-        } catch (error) { }
-
-    }
-
-    async playSound36() {
-
-        if (this.state.soundplaying === false) {
-            console.log("if1 soundplaying : ", this.state.soundplaying)
-            const soundObject = new Audio.Sound();
-            try {
-                await soundObject.loadAsync(require("../../assets/audio/audioclip.wav"));
-                await soundObject.playAsync();
-                setTimeout(() => {
-                    this.playSound();
-                }, 53000);
-                this.setState({
-                    soundplaying: true
-                })
-                console.log("if2 soundplaying : ", this.state.soundplaying)
-            } catch (error) { }
-        }
-        else {
-            console.log("else soundplaying : ", this.state.soundplaying)
-            soundObject.stopAsync()
-            this.setState({
-                soundplaying: false
-            })
+            await sound1.loadAsync(require(file_sound1));
+            await sound2.loadAsync(require(file_sound2));
+            let s1 = await sound1.getStatusAsync();
+            let s2 = await sound2.getStatusAsync();
+            duratioin_sound1 = s1.durationMillis;
+            duratioin_sound2 = s2.durationMillis;
+        } catch (err) {
+            console.warn('Can\'t load sound' + err);
         }
     }
 
-    async playSoundTH() {
-        const soundObject = new Audio.Sound();
-        try {
-            await soundObject.loadAsync(require("../../assets/audio/thai33.m4a"));
-            await soundObject.playAsync();
-        } catch (error) { }
+    async play_instruct() {
+        clearTimeout(timeout10s);
+        sound1.stopAsync();
+        await sound1.playAsync();
+        timeout10s = setTimeout(() => {
+            sound1.stopAsync();
+            sound2.stopAsync();
+            sound2.playAsync();
+            clearTimeout(timeout10s);
+            sound1.stopAsync();
+        }, duratioin_sound1 + 10000);
     }
 
+    async sound2_play() {
+        sound2.stopAsync();
+        await sound2.playAsync();
+    }
 
     componentDidMount() {
         Audio.setAudioModeAsync({
@@ -192,10 +157,30 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
-
-
     }
 
+    componentWillUnmount() {
+        if (this.state.recording) {
+            console.log("saved video");
+            this.stopRecordViedo();
+        } else {
+            console.log("Video not record");
+        }
+        clearTimeout(timeout10s);
+        clearTimeout(timeout1);
+        clearTimeout(timeout2);
+        sound1.stopAsync();
+        sound2.stopAsync();
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        clearTimeout(timeout10s);
+        clearTimeout(timeout1);
+        clearTimeout(timeout2);
+        sound1.stopAsync();
+        sound2.stopAsync();
+        this.setState({ alerttext: "" });
+    }
 
     startRunningTime = () => {
         if (this.props.VideoReducer.element.isVad) {
@@ -204,9 +189,6 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.command_num == 0) {
             this.recordVideo();
         }
-
-
-
 
         if (
             this.props.VideoReducer.command_num == 9 ||
@@ -250,14 +232,6 @@ class VideoPage extends React.Component {
 
     };
 
-    // stopRunningTime = () => {
-    //     this.setState({
-    //         runningTime: false,
-    //         disabledTouchableOpacityStop: true,
-    //         disabledTouchableOpacityStart: true,
-    //         disabledTouchableOpacityNext: false,
-    //     });
-    // };
     stopRunningTime = () => {
         this.setState({
             runningTime: false,
@@ -265,22 +239,19 @@ class VideoPage extends React.Component {
             disabledTouchableOpacityStart: true,
             disabledTouchableOpacityNext: false,
         });
-        clearTimeout(this.timeout1);
-        clearTimeout(this.timeout2);
+        clearTimeout(timeout1);
+        clearTimeout(timeout2);
         this.setState({
             alerttext: ""
         })
     };
 
     NextRunningTime = () => {
-        //this.camera.pausePreview();
         this.props.NextCommand(this.props.navigation);
         console.log("command_num : ", this.props.VideoReducer.command_num)
         this.setState(({ uniqueValue }) => ({
             uniqueValue: uniqueValue + 1,
-            //ready: false,
         }));
-
 
         if (
             this.props.VideoReducer.command_num == 8 ||
@@ -356,8 +327,7 @@ class VideoPage extends React.Component {
                 this.initCountDown();
             }
         } else {
-
-            this.playSound();
+            this.sound2_play();
             this.setState({ faceDetected: false });
             this.cancelCountDown();
         }
@@ -391,23 +361,23 @@ class VideoPage extends React.Component {
 
     renderValidate1 = () => {
         console.log("เล่าเพิ่มอีกนิดนะคะ")
-        this.timeout1 = setTimeout(() => {
+        timeout1 = setTimeout(() => {
             this.renderValidate2()
             this.setState({
                 alerttext: "เล่าเพิ่มอีกนิดนะคะ"
             })
         }, 20000);
     }
+
     renderValidate2 = () => {
         console.log("ช่วยเล่ารายละเอียดหน่อยค่ะ")
-        this.timeout2 = setTimeout(() => {
-            this.renderValidate2()
+        timeout2 = setTimeout(() => {
+            this.renderValidate1()
             this.setState({
                 alerttext: "ช่วยเล่ารายละเอียดหน่อยค่ะ"
             })
         }, 40000);
     }
-
 
     renderMark = () => {
         return (
@@ -424,19 +394,9 @@ class VideoPage extends React.Component {
             </View>
         );
     };
-    renderPicOfSound = () => {
-        return (
-            <View>
-                <Image
-                    style={{ alignSelf: "center" }}
-                    source={require("../../assets/img/sound-on.png")}
-                ></Image>
-            </View>
-        );
-    };
+
     recordVideo = async () => {
         console.log("state:", this.state.recording)
-
         this.setState({
             recording: true,
         });
@@ -447,6 +407,7 @@ class VideoPage extends React.Component {
         });
 
     }
+
     stopRecordViedo = async () => {
         this.setState({
             recording: false,
@@ -456,8 +417,6 @@ class VideoPage extends React.Component {
 
     render() {
         var element = this.props.VideoReducer.element
-        var data = element.data
-        var Reducer = this.props.VideoReducer;
         var test_length = 31
         return (
             <View style={{
@@ -488,28 +447,22 @@ class VideoPage extends React.Component {
 
 
                         <View style={{ flex: 0.55, justifyContent: 'center', alignItems: 'center' }}>
-
                             {element.isImage ?
-                                // <View style={{flex:1,backgroundColor:'blue'}}>
-                                <Image style={{
-                                    resizeMode: 'contain',
-                                    height: element.height,
-                                    width: element.width,
-
-                                }}
-
-
+                                <Image
+                                    style={{
+                                        resizeMode: 'contain',
+                                        height: element.height,
+                                        width: element.width,
+                                    }}
                                     source={element.data}
-
-                                //source={require("../../assets/img/img_part3/m0288_AN.png")}
-                                >
-                                </Image>
-
-                                // </View>
+                                />
                                 : (element.isAudio ?
                                     <View style={{ flex: 1 }}>
                                         <View style={{ flex: 0.3 }}>
-                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={this.playSound36.bind(this)}>
+                                            <TouchableOpacity
+                                                style={{ flex: 1, alignItems: 'center' }}
+                                                onPress={this.play_instruct}
+                                            >
                                                 <Image
                                                     style={{ alignSelf: 'center', resizeMode: 'center', width: '100%', height: '100%' }}
                                                     source={require("../../assets/img/volume.png")}
@@ -539,18 +492,17 @@ class VideoPage extends React.Component {
                                                     {element.data}
                                                 </Text>
                                             </ScrollView>
-                                        </View>) : (
+                                        </View>) :
+                                        (
                                             <Text style={{ fontSize: 24 }}>
                                                 {element.data}
                                             </Text>
-                                        ))
+                                        )
+                                    )
                                 )
                             }
-                            {/* {element.isVad ? (this.renderValidate1()) : null} */}
                             <Text style={{ color: 'red', fontSize: 24, marginTop: 10 }}>{this.state.alerttext}</Text>
-
                         </View>
-
 
                         <View style={{ flex: 0.17 }}>
                             <View
@@ -560,7 +512,6 @@ class VideoPage extends React.Component {
                                 }}
                             >
                                 <TouchableOpacity
-
                                     onPress={this.startRunningTime}
                                     underlayColor="#C7C7CC"
                                     style={
@@ -591,7 +542,6 @@ class VideoPage extends React.Component {
                                 <TouchableOpacity
                                     onPress={this.NextRunningTime}
                                     underlayColor="#C7C7CC"
-
                                     style={
                                         this.state.disabledTouchableOpacityNext == true
                                             ? styles.buttonNextDis
@@ -602,19 +552,13 @@ class VideoPage extends React.Component {
                                     <Text style={styles.buttonText}>ถัดไป</Text>
                                 </TouchableOpacity>
                             </View>
-
                         </View>
-
                     </View>
-
 
                     <View style={{ flex: 0.3, flexDirection: 'row' }}>
                         <View style={{ flex: 1, margin: 10, padding: 10 }}>
                             <Camera
-
                                 ref={ref => this.camera = ref}
-                                //ref={ref=>console.log("ref:",this.ref)}
-                                //ref={ref => {setCameraRef(ref) ;}}
                                 style={{ flex: 1, position: "relative" }}
                                 type={this.props.cameraType}
                                 onFaceDetectionError={this.handleFaceDetectionError}
@@ -627,7 +571,6 @@ class VideoPage extends React.Component {
                                     tracking: true,
                                 }}
                                 onCameraReady={() => { this.setState({ ready: true }) }}
-
                             >
                                 <View
                                     style={{
@@ -644,15 +587,8 @@ class VideoPage extends React.Component {
                                             : "No Face Detected"}
                                     </Text>
                                 </View>
-
-                                <View>
-
-
-                                </View>
-
                                 {this.state.faceDetected ? (
                                     <BlurView
-
                                         intensity={100}
                                         style={[StyleSheet.absoluteFill]}
                                         key={this.state.faceID}
@@ -674,21 +610,41 @@ class VideoPage extends React.Component {
                                         },
                                         ]}
                                     ></BlurView>
-                                ) : (
-                                        null
-                                    )}
+                                ) : null}
                                 {this.renderMark()}
-
                             </Camera>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
                             <Text style={{ fontSize: 14 }}>
-                                กดปุ่ม "เริ่ม" เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"}{"\n"}
-                            กดปุ่ม "หยุด" เมื่อท่านทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด {"\n"}{"\n"}
-                            กดปุ่ม "ถัดไป" เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป
-                        </Text>
+                                - กด{" "}
+                                <Image
+                                    style={{
+                                        width: 70 * 0.4,
+                                        height: 50 * 0.4,
+                                    }}
+                                    source={require("../../assets/img/start.png")}
+                                />
+                                {" "}เพื่อเริ่มต้นทำแบบทดสอบ{"\n"}
+                                - กด{" "}
+                                <Image
+                                    style={{
+                                        width: 70 * 0.4,
+                                        height: 50 * 0.4,
+                                    }}
+                                    source={require("../../assets/img/stop.png")}
+                                />
+                                {" "}เมื่อทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด{"\n"}
+                                - กด{" "}
+                                <Image
+                                    style={{
+                                        width: 70 * 0.4,
+                                        height: 50 * 0.4,
+                                    }}
+                                    source={require("../../assets/img/next.png")}
+                                />
+                                {" "}เพื่อไปยังข้อถัดไป
+                            </Text>
                         </View>
-
                     </View>
                 </View>
             </View>
