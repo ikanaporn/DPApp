@@ -158,6 +158,7 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
+        this.recordVideo();
     }
 
     componentWillUnmount() {
@@ -186,9 +187,6 @@ class VideoPage extends React.Component {
     startRunningTime = () => {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
-        }
-        if (this.props.VideoReducer.command_num == 0) {
-            this.recordVideo();
         }
 
         if (
