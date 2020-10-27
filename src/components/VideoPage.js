@@ -41,17 +41,19 @@ console.warn = (message) => {
 const win_height = Dimensions.get('window').height;
 const win_width = Dimensions.get('window').width;
 
-var timeout10s, timeout1, timeout2;
+var timeout_instruct, timeout10s, timeout1, timeout2;
 const file_sound1 = '../../assets/audio/audioclip.wav';
 const file_sound2 = '../../assets/audio/tone.wav';
 var sound1 = new Audio.Sound();
 var sound2 = new Audio.Sound();
 var duratioin_sound1 = 0;
 var duratioin_sound2 = 0;
+var self;
 
 class VideoPage extends React.Component {
     constructor(props) {
         super(props);
+        self = this;
         this.checkPermissions();
         this.load_sound();
         this.props.navigation.setOptions({
@@ -90,6 +92,10 @@ class VideoPage extends React.Component {
             haveRecordingPermissions: false,
             //soundplaying
             soundplaying: false,
+
+            // ตอบคำถามที่ต้องใช้จิตนาการ
+            popup_text: "",
+            is_hided_speaker: true,
         };
     }
 
@@ -131,16 +137,24 @@ class VideoPage extends React.Component {
     }
 
     async play_instruct() {
+        clearTimeout(timeout_instruct);
         clearTimeout(timeout10s);
         sound1.stopAsync();
         await sound1.playAsync();
-        timeout10s = setTimeout(() => {
-            sound1.stopAsync();
-            sound2.stopAsync();
-            sound2.playAsync();
-            clearTimeout(timeout10s);
-            sound1.stopAsync();
-        }, duratioin_sound1 + 10000);
+        timeout_instruct = setTimeout(async () => {
+            await sound1.stopAsync();
+            console.log("timeouttttttttttttttttttttt");
+            // Set Timer
+
+            self.setState({
+                popup_text: self.props.VideoReducer.element.data,
+                is_hided_speaker: false,
+            });
+            timeout10s = setTimeout(async () => {
+                await sound2.stopAsync();
+                await sound2.playAsync();
+            }, 10 * 1000); //millisec
+        }, duratioin_sound1);
     }
 
     async sound2_play() {
@@ -168,6 +182,7 @@ class VideoPage extends React.Component {
         } else {
             console.log("Video not record");
         }
+        clearTimeout(timeout_instruct);
         clearTimeout(timeout10s);
         clearTimeout(timeout1);
         clearTimeout(timeout2);
@@ -176,12 +191,17 @@ class VideoPage extends React.Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
+        clearTimeout(timeout_instruct);
         clearTimeout(timeout10s);
         clearTimeout(timeout1);
         clearTimeout(timeout2);
         sound1.stopAsync();
         sound2.stopAsync();
-        this.setState({ alerttext: "" });
+        this.setState({
+            alerttext: "",
+            popup_text: "",
+            is_hided_speaker: true,
+        });
     }
 
     startRunningTime = () => {
@@ -241,7 +261,9 @@ class VideoPage extends React.Component {
         clearTimeout(timeout1);
         clearTimeout(timeout2);
         this.setState({
-            alerttext: ""
+            alerttext: "",
+            popup_text: "",
+            is_hided_speaker: true,
         })
     };
 
@@ -446,8 +468,8 @@ class VideoPage extends React.Component {
         var test_length = 31
         return (
             <View style={{
-                backgroundColor: '#83B8A2'
-                , flex: 1
+                backgroundColor: '#83B8A2',
+                flex: 1,
             }}>
                 <View style={{ flex: 0.02 }}>
                     <View style={[styles.container, { width: '100%' }]}>
@@ -482,23 +504,23 @@ class VideoPage extends React.Component {
                                 />
                                 : (element.isAudio ?
                                     <View style={{ flex: 1 }}>
-                                        <View style={{ flex: 0.3 }}>
-                                            <TouchableOpacity
-                                                style={{ flex: 1, alignItems: 'center' }}
-                                                onPress={this.play_instruct}
-                                            >
-                                                <Image
-                                                    style={{ alignSelf: 'center', resizeMode: 'center', width: '100%', height: '100%' }}
-                                                    source={require("../../assets/img/volume.png")}
-                                                ></Image>
-                                                <Text style={{ fontSize: 12 }}>กดเพื่อเล่น</Text>
-
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ flex: 0.7, justifyContent: 'center', padding: '4%' }}>
-                                            <Text style={{ fontSize: 24 }}>
-                                                {element.data}
-                                            </Text>
+                                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                                            {this.state.is_hided_speaker ?
+                                                <TouchableOpacity
+                                                    style={{ flex: 1, alignItems: 'center' }}
+                                                    onPress={this.play_instruct}
+                                                >
+                                                    <Image
+                                                        style={{ alignSelf: 'center', resizeMode: 'center', flex: 0.9 }}
+                                                        source={require("../../assets/img/volume.png")}
+                                                    ></Image>
+                                                    <Text style={{ fontSize: 12 }}>กดเพื่อเล่น</Text>
+                                                </TouchableOpacity>
+                                                :
+                                                <Text style={{ fontSize: 24 }}>
+                                                    {this.state.popup_text != "" ? this.state.popup_text : null}
+                                                </Text>
+                                            }
                                         </View>
                                     </View> :
                                     (this.props.VideoReducer.command_num == 2 ? (
