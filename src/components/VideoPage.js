@@ -50,11 +50,8 @@ var sound1 = new Audio.Sound();
 var sound2 = new Audio.Sound();
 var duratioin_sound1 = 0;
 var duratioin_sound2 = 0;
-<<<<<<< HEAD
 const button_back_text = 'ย้อนกลับ';
-=======
 var self;
->>>>>>> 4dc8fd72d78d8a1d14f9485451f0cb3483a91fa8
 
 class VideoPage extends React.Component {
 
@@ -256,7 +253,6 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
-<<<<<<< HEAD
         if (this.props.VideoReducer.command_num == 0) {
             this.recordVideo();
             this.setState({
@@ -264,8 +260,6 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityBack: true,
             })
         }
-=======
->>>>>>> 4dc8fd72d78d8a1d14f9485451f0cb3483a91fa8
 
         if (
             this.props.VideoReducer.command_num == 8 ||
