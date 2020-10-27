@@ -10,10 +10,14 @@ import {
     ScrollView,
     Image,
 } from 'react-native';
-import { styles } from '../css';
 import { Autocomplete } from "react-native-dropdown-autocomplete";
 import DatePicker from 'react-native-datepicker';
-import { color1 } from '../constants';
+
+import {
+    bar,
+    color1,
+} from '../constants';
+import { styles } from '../css';
 import { initialState } from './QuestionInitialState';
 import { writeUserData, getQuestion, getQuestionnaire, removeQuestion } from '../server/server';
 
@@ -22,17 +26,6 @@ const button_back_text = 'ย้อนกลับ';
 const button_hexcode = color1[0];
 const button_selected_hexcode = color1[1];
 const win_height = Dimensions.get('window').height;
-
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 20,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 
 export default class Questionnaire extends Component {
     async getData(props, Reducer, ReducerName) {
@@ -83,6 +76,11 @@ export default class Questionnaire extends Component {
         }
     }
     async save_question(Reducer, ReducerName, selected_index, select_multiple_index, text_data) {
+        if (ReducerName === "AdminReducer") {
+            if (Reducer.question_id == 0) {
+                text_data = typeof text_data === "undefined" ? this.state.text_data : text_data;
+            }
+        }
         var question = Reducer.question;
         question.selected_index = selected_index;
         question.select_multiple_index = select_multiple_index;
@@ -594,7 +592,7 @@ export default class Questionnaire extends Component {
                 alignItems: 'center',
                 justifyContent: 'center',
             }]}>
-                <View style={[styles.box2]}>
+                <View style={[styles.box2, { justifyContent: this.state.isScrollable ? 'center' : 'flex-start' }]}>
                     {this.state.isScrollable ? bar : null}
                     <Text style={styles.contentText}>
                         {Reducer.question.question}

@@ -3,7 +3,7 @@ import { NEXT_COMMAND, END_TEST, BACK_COMMAND } from "../constants";
 import VideoInitial from "./VideoInitial";
 import { State } from "react-native-gesture-handler";
 
-var num = 15;
+var num = 0;
 var prog = 0;
 const INITIAL_STATE = {
     command_num: num,
@@ -39,15 +39,16 @@ export default (state = INITIAL_STATE, action) => {
                 //progress: this.state.progress,
             };
 
-        // case BACK_COMMAND:
-        //     return {
-        //         ...state,
-        //         command_num: state.command_num - 1,
-        //         command_text: Test3Commandinitial[state.command_num].data,
-        //         isCommand: true,
-        //         isEnd: false,
-        //         //progress: this.state.progress,
-        //     };
+        case BACK_COMMAND:
+            return {
+                ...state,
+                command_num: state.command_num - 1,
+                element: VideoInitial[state.command_num-1],
+                //command_text: VideoInitial[state.command_num-1].data,
+                isCommand: true,
+                isEnd: false,
+                //progress: this.state.progress,
+            };
 
         case END_TEST:
             return {

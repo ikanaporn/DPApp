@@ -128,24 +128,7 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         textAlign: "center",
-
         justifyContent: 'flex-end'
-
-
-    },
-    contentText: {
-        margin: 10,
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold',
-    },
-    cardTemplate: {
-        justifyContent: "space-around",
-        textAlign: "center",
-        marginTop: '35%',
-        color: "#fff",
-        fontSize: 18,
-        fontWeight: "bold",
     },
 });
 

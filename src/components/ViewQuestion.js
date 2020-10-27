@@ -9,19 +9,10 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from '../css';
+import { bar, } from '../constants';
 import { getQuestionnaire } from '../server/server';
 
 const win_height = Dimensions.get('window').height;
-const bar = <Image
-    style={{
-        alignSelf: 'flex-end',
-        width: 10,
-        height: 50,
-        zIndex: 3,
-        position: 'absolute',
-    }}
-    source={require("../../assets/img/updown.png")}
-></Image>;
 
 export default class ViewQuestion extends Component {
     async getData(name) {
@@ -195,7 +186,7 @@ export default class ViewQuestion extends Component {
                 break;
         }
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, { justifyContent: 'center' }]}>
                 {this.state.isScrollable ? bar : null}
                 <ScrollView style={styles.box}
                     onContentSizeChange={(width, height) => {

@@ -4,36 +4,87 @@ import {
     TouchableOpacity,
     View,
     StyleSheet,
+    Image,
 } from 'react-native';
+import { Audio } from "expo-av";
+
 import {
     color1,
     NavigationName,
 } from '../constants';
 
 class VideoHelpPage extends React.Component {
+    async playSound() {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require("../../assets/audio/tone.wav"));
+            await soundObject.playAsync();
+        } catch (error) { }
+
+    }
+
     render() {
-        //this.props.navigation.setOptions({ title: 'อาสาสมัครรหัส: ' + this.props.route.params.volunteer.id });
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                <View style={styles.contentHelp}>
-                        <Text style={{
-                            fontSize: 16, 
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            
-                            }}>
-                            กดปุ่ม "เริ่ม"{"\n"} เมื่อท่านต้องการเริ่มต้นทำแบบทดสอบ {"\n"} {"\n"}
-                            กดปุ่ม "หยุด"{"\n"} เมื่อท่านทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด {"\n"} {"\n"}
-                            กดปุ่ม "ถัดไป"{"\n"} เมื่อท่านต้องการไปยังแบบทดสอบข้อถัดไป{"\n"} 
+                    <View style={styles.contentHelp}>
+                        <Text style={{ fontSize: 16, }}>
+                            - กด{" "}
+                            <Image
+                                style={{
+                                    width: 70,
+                                    height: 50,
+                                }}
+                                source={require("../../assets/img/start.png")}
+                            />
+                            {" "}เพื่อเริ่มต้นทำแบบทดสอบ{"\n"}
+                            - กด{" "}
+                            <Image
+                                style={{
+                                    width: 70,
+                                    height: 50,
+                                }}
+                                source={require("../../assets/img/stop.png")}
+                            />
+                            {" "}เมื่อทำแบบทดสอบเสร็จก่อนเวลาที่กำหนด{"\n"}
+                            - กด{" "}
+                            <Image
+                                style={{
+                                    width: 70,
+                                    height: 50,
+                                }}
+                                source={require("../../assets/img/next.png")}
+                            />
+                            {" "}เพื่อไปยังข้อถัดไป{"\n"}
+                            - สัญญาณเสียงเริ่ม คือเสียง
                         </Text>
-                </View>  
-                    
+                        <TouchableOpacity
+                            style={{
+                                width: 50,
+                                height: 50,
+                            }}
+                            onPress={this.playSound}
+                        >
+                            <Image
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                }}
+                                source={require("../../assets/img/volume.png")}
+                            />
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 16, }}>
+                            {" "}(กดรูปลำโพงเพื่อลองฟังเสียง){"\n"}
+                            - ต่อไปนี้จะเป็นแบบทดสอบที่ท่านจะถูกบันทึกภาพและเสียง เมื่อใบหน้าของท่านไม่อยู่ในกรอบจะมีสัญญาณเตือน ขอให้ท่านขยับใบหน้าให้อยู่ในบริเวณเส้นประที่กำหนด{"\n"}
+                            - ใบหน้าของท่านจะถูกปิดด้วยแถบสีเทา
+                        </Text>
+                    </View>
+
                     <TouchableOpacity
                         style={[styles.button, styles.buttonvideo]}
                         onPress={() => {
-                            this.props.navigation.navigate(NavigationName.VideoPage, 
-                            //    {volunteer: this.props.route.params.volunteer,}
+                            this.props.navigation.navigate(NavigationName.VideoPage,
+                                { volunteer: this.props.route.params.volunteer, }
                             )
                         }}
                     >
@@ -58,18 +109,7 @@ export const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "white",
         flexDirection: 'column',
-    },
-    buttonbasic: {
-        backgroundColor: color1[1],
-        borderColor: color1[1],
-    },
-    buttonhamilton: {
-        backgroundColor: color1[2],
-        borderColor: color1[2],
-    },
-    buttonphq9: {
-        backgroundColor: color1[3],
-        borderColor: color1[3],
+        justifyContent: "center",
     },
     buttonvideo: {
         backgroundColor: color1[4],
@@ -90,22 +130,13 @@ export const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         textAlign: "center",
-        marginLeft: 10,
-    },
-    contentText: {
-        margin: 10,
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold',
     },
     contentHelp: {
-        marginTop: '50%',
-        marginVertical: '20%',
-        marginHorizontal: '4%',
-        alignContent: 'center',
-        marginLeft: 50
-        
-    }
+        flex: 1,
+        alignItems: 'center',
+        margin: 10,
+        padding: 10,
+    },
 });
 
 export default VideoHelpPage;

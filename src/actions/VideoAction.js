@@ -5,8 +5,9 @@ export const NextCommand = (navigation) => ({
   navigation: navigation
 });
 
-export const BackCommand = () => ({
+export const BackCommand = (navigation) => ({
   type: BACK_COMMAND,
+  navigation: navigation
 });
 
 
