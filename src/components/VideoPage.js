@@ -36,7 +36,7 @@ import VideoReducer from "../reducers/VideoReducer";
 //import { styles } from '../css';
 import CountDown from 'react-native-countdown-component';
 import moment from 'moment';
-
+import { writeTimestamp } from '../server/server';
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
@@ -57,6 +57,10 @@ var duratioin_sound1 = 0;
 var duratioin_sound2 = 0;
 const button_back_text = 'ย้อนกลับ';
 var self;
+var start=null;
+var stop=null;
+var tempstart=null;
+var tempstop=null;
 
 
 class VideoPage extends React.Component {
@@ -153,6 +157,8 @@ class VideoPage extends React.Component {
             // ตอบคำถามที่ต้องใช้จิตนาการ
             popup_text: "",
             is_hided_speaker: true,
+            //time
+            curTime: null,
         };
        
     }
@@ -245,6 +251,11 @@ class VideoPage extends React.Component {
             playThroughEarpieceAndroid: false,
         });
         this.recordVideo();
+        setInterval(() => {
+            this.setState({
+              curTime : new Date().toLocaleString()
+            })
+        }, 1000)
     }
 
     componentWillUnmount() {
@@ -278,18 +289,25 @@ class VideoPage extends React.Component {
     }
 
     startRunningTime = () => {
+        start = this.state.curTime,
+        tempstart = start,
+        //var curr_start = this.props.VideoReducer.command_num+','+this.state.curTime
+       // writeTimestamp(curr_start);
+       //writeTimestamp(this.props.route.params.volunteer.id,'Video', this.props.VideoReducer.command_num, curr_start, '')
         //const timestamp = MediaLibrary.getAssetInfoAsync(asset, options)
-
+       // console.log("curTime_start",curr_start)
         console.log("start no : ",this.props.VideoReducer.command_num)
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
         if (this.props.VideoReducer.command_num == 0) {
             this.recordVideo()
+            
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
             })
+            //console.log("curTime_start",this.state.curTime)
         }
 
         if (
@@ -301,6 +319,8 @@ class VideoPage extends React.Component {
             this.props.VideoReducer.command_num == 13 
         
         ) {
+           // const assetInfo = MediaLibrary.getAssetInfoAsync(asset);
+           // console.log("asset :",assetInfo)
             this.setState({
                 runningTime: true,
                 disabledTouchableOpacityStart: true,
@@ -392,6 +412,10 @@ class VideoPage extends React.Component {
         })
     };
     BackCommand = () => {
+        var curr_back = this.props.VideoReducer.command_num+','+this.state.curTime
+        console.log("current back",curr_back)
+        //writeTimestamp(curr_back);
+
         this.props.BackCommand(this.props.navigation);
         console.log("back command num  to : ", this.props.VideoReducer.command_num)
         this.setState(({ uniqueValue }) => ({
@@ -435,6 +459,13 @@ class VideoPage extends React.Component {
     }
 
     NextRunningTime = () => {
+        stop = this.state.curTime,
+        tempstop = stop
+        var curr_next = this.props.VideoReducer.command_num+','+this.state.curTime
+        console.log("curr_next", curr_next)
+        //writeTimestamp(curr_next);
+        writeTimestamp(this.props.route.params.volunteer.id,'Video', this.props.VideoReducer.command_num, tempstart, tempstop)
+       // console.log("curTime_start",this.state.curTime)
         this.props.NextCommand(this.props.navigation);
         console.log("next command_num : ", this.props.VideoReducer.command_num)
         this.setState(({ uniqueValue }) => ({

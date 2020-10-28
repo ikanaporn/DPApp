@@ -24,8 +24,7 @@ async function getQuestionnaire(userId, type) {
 }
 
 async function getQuestion(userId, type, question_id) {
-    const snapshot = await firebase.database().ref("/" + userId + "/" + type + "/" + question_id).once('value');
-    return snapshot.val();
+    return await (await firebase.database().ref("/" + userId + "/" + type + "/" + question_id).once('value')).val();
 }
 
 function removeQuestion(userId, type, question_id) {
@@ -36,4 +35,11 @@ function removeQuestion(userId, type, question_id) {
     }
 }
 
-export { writeUserData, listUser, getQuestionnaire, getQuestion, removeQuestion };
+function writeTimestamp(userId, type, question_id, start, stop) {
+    firebase.database().ref(userId + "/" + type + "/" + question_id).set({
+        start: start,
+        stop: stop,
+    });
+}
+
+export { writeUserData, listUser, getQuestionnaire, getQuestion, removeQuestion, writeTimestamp };
