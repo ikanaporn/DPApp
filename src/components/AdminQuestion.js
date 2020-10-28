@@ -32,7 +32,7 @@ class AdminQuestion extends Questionnaire {
     async UNSAFE_componentWillReceiveProps(nextProps) {
         await this.getData(nextProps, nextProps.AdminReducer, ReducerName);
     }
-    async render() {
+    render() {
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)
