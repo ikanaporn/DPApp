@@ -888,7 +888,7 @@ class VideoPage extends React.Component {
                                 onCameraReady={async () => {
                                     this.setState({ ready: true })
                                     await this.camera.getSupportedRatiosAsync();
-                                    console.log('onCameraReady ratios: ', ratios);
+                                    //console.log('onCameraReady ratios: ', ratios);
                                 }}
                             >
                                 <View
