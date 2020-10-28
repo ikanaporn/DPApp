@@ -2,6 +2,9 @@ import React from 'react';
 import {
     StyleSheet,
 } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import {
     color1,
@@ -23,12 +26,6 @@ import ScoreHamilton from './components/ScoreHamilton';
 import ScorePHQ9 from './components/ScorePHQ9';
 import VideoPage from './components/VideoPage';
 import VideoHelpPage from './components/VideoHelpPage';
-//import VideoRenderPage from './components/VideoRenderPage';
-
-
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -47,7 +44,6 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                         }}
                     />
-
                     <Stack.Screen
                         name={NavigationName.ListVolunteerPage}
                         component={ListVolunteerPage}
@@ -97,7 +93,6 @@ class Main extends React.Component {
                             headerLeft: null,
                         }}
                     />
-
                     <Stack.Screen
                         name={NavigationName.ListAdminPage}
                         component={ListAdminPage}
@@ -119,7 +114,6 @@ class Main extends React.Component {
                             headerLeft: null,
                         }}
                     />
-
                     <Stack.Screen
                         name={NavigationName.VideoPage}
                         component={VideoPage}
@@ -131,12 +125,11 @@ class Main extends React.Component {
                             headerLeft: null,
                         }}
                     />
-
                     <Stack.Screen
                         name={NavigationName.ViewAdminQuestion}
                         component={ViewAdminQuestion}
                         options={{
-                            
+
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
@@ -187,7 +180,7 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                         }}
                     />
-                     <Stack.Screen
+                    <Stack.Screen
                         name={NavigationName.VideoHelpPage}
                         component={VideoHelpPage}
                         options={{
@@ -197,7 +190,6 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                         }}
                     />
-                    
                 </Stack.Navigator>
             </NavigationContainer>
         );
