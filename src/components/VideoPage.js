@@ -352,7 +352,24 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityNext: false,
                 disabledTouchableOpacityBack: true,
             });
-        }else {
+        } 
+        else if (this.props.VideoReducer.command_num == 31) {
+            console.log("stop record , ",this.props.VideoReducer.command_num)
+            if (this.state.recording) {
+                //console.log("saved video",this.camera)
+                this.stopRecordViedo()
+            } else {
+                console.log("Video not record")
+            }
+            this.setState({
+                runningTime: false,
+                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityStart: true,
+                disabledTouchableOpacityNext: false,
+                disabledTouchableOpacityBack: false,
+            }); 
+        }
+        else {
             this.setState({
                 runningTime: false,
                 disabledTouchableOpacityStop: true,
@@ -651,7 +668,10 @@ class VideoPage extends React.Component {
             recording: true,
         });
         console.log("recording")
-        await this.camera.recordAsync({ quality: '4:3' }).then((file) => {
+        //16:9
+        //const raito = await this.camera.getSupportedRatiosAsync()
+        // console.log("ratio : ", raito){ quality: '16:9' }
+        await this.camera.recordAsync().then((file) => {
             console.log("Video has been recorded");
             console.log("file", file.uri)
             const asset = MediaLibrary.createAssetAsync(file.uri);
@@ -867,6 +887,8 @@ class VideoPage extends React.Component {
                                 }}
                                 onCameraReady={async () => {
                                     this.setState({ ready: true })
+                                    await this.camera.getSupportedRatiosAsync();
+                                    console.log('onCameraReady ratios: ', ratios);
                                 }}
                             >
                                 <View

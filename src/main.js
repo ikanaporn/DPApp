@@ -34,17 +34,8 @@ class Main extends React.Component {
         return (
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen
-                        name={NavigationName.VideoPage}
-                        component={VideoPage}
-                        options={{
-                            title: 'วิดีโอ',
-                            headerStyle: [styles.headerStyle,],
-                            headerTintColor: 'white',
-                            headerTitleStyle: [styles.headerTitleStyle,],
-                            headerLeft: null,
-                        }}
-                    />
+                    
+                   
                     <Stack.Screen
                         name={NavigationName.MainPage}
                         component={MainPage}
@@ -125,7 +116,7 @@ class Main extends React.Component {
                             headerLeft: null,
                         }}
                     />
-                    {/* <Stack.Screen
+                    <Stack.Screen
                         name={NavigationName.VideoPage}
                         component={VideoPage}
                         options={{
@@ -135,7 +126,7 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                             headerLeft: null,
                         }}
-                    /> */}
+                    />
                     <Stack.Screen
                         name={NavigationName.ViewAdminQuestion}
                         component={ViewAdminQuestion}
