@@ -42,7 +42,7 @@ export const NavigationName = {
     ScorePHQ9: "คะแนน PHQ9",
     VideoPage: "วิดีโอ",
     VideoHelpPage: "คำแนะนำ",
-    //VideoRenderPage: "ติดตั้ง",
+    VideoRenderPage: "ติดตั้ง",
     //MainPage: "หน้าหลัก",
 }
 
