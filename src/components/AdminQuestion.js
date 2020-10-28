@@ -26,30 +26,29 @@ class AdminQuestion extends Questionnaire {
             )
         });
     }
-    componentDidMount() {
-        this.getData(this.props, this.props.AdminReducer, ReducerName);
+    async componentDidMount() {
+        await this.getData(this.props, this.props.AdminReducer, ReducerName);
     }
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.getData(nextProps, nextProps.AdminReducer, ReducerName);
+    async UNSAFE_componentWillReceiveProps(nextProps) {
+        await this.getData(nextProps, nextProps.AdminReducer, ReducerName);
     }
     async render() {
-        var Reducer = await this.props.AdminReducer;
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)
                     ? <Text>Loading</Text>
                     : <View style={[styles.container, { width: '100%' }]}>
-                        <ProgressBar max={Reducer.question.test_length} step_no={Reducer.question.step_no} />
-                        {(typeof Reducer.question.branch === 'undefined') ? null :
-                            Reducer.question.branch.map((key, index) => {
+                        <ProgressBar max={this.props.AdminReducer.question.test_length} step_no={this.props.AdminReducer.question.step_no} />
+                        {(typeof this.props.AdminReducer.question.branch === 'undefined') ? null :
+                            this.props.AdminReducer.question.branch.map((key, index) => {
                                 return (
                                     <ProgressBar key={index} max={key.test_length} step_no={key.step_no} color={color_ProgreesBar[index]} />
                                 );
                             })}
 
-                        {Reducer.question.answer_type != "selectedtext" ?
-                            <ScrollView style={styles.box} persistentScrollbar={true}>{this.renderQuestion(Reducer, ReducerName)}</ScrollView> :
-                            <SafeAreaView style={styles.box}>{this.renderQuestion(Reducer, ReducerName)}</SafeAreaView>}
+                        {this.props.AdminReducer.question.answer_type != "selectedtext" ?
+                            <ScrollView style={styles.box} persistentScrollbar={true}>{this.renderQuestion(this.props.AdminReducer, ReducerName)}</ScrollView> :
+                            <SafeAreaView style={styles.box}>{this.renderQuestion(this.props.AdminReducer, ReducerName)}</SafeAreaView>}
                     </View>
                 }
             </View>
