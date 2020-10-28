@@ -280,6 +280,7 @@ class VideoPage extends React.Component {
             this.renderValidate1()
         }
         if (this.props.VideoReducer.command_num == 0) {
+            this.recordVideo()
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
@@ -300,7 +301,7 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityStart: true,
                 disabledTouchableOpacityStop: false,
                 disabledTouchableOpacityNext: true,
-                disabledTouchableOpacityBack: false,
+                disabledTouchableOpacityBack: true,
                 countdownStart: 60,
             });
         }
@@ -313,7 +314,7 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStart: true,
                     disabledTouchableOpacityStop: false,
                     disabledTouchableOpacityNext: true,
-                    disabledTouchableOpacityBack: false,
+                    disabledTouchableOpacityBack: true,
                     countdownStart: 15,
                 });
             } else if (this.props.VideoReducer.command_num == 0) {
@@ -333,7 +334,7 @@ class VideoPage extends React.Component {
                     disabledTouchableOpacityStart: true,
                     disabledTouchableOpacityStop: false,
                     disabledTouchableOpacityNext: true,
-                    disabledTouchableOpacityBack: false,
+                    disabledTouchableOpacityBack: true,
                     countdownStart: 120,
                 });
             }
@@ -384,7 +385,19 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityBack: true,
                 countdownStart: 15,
             });
-        } else {
+        }else if (this.props.VideoReducer.command_num == 1) {
+            console.log("back command_num ",this.props.VideoReducer.command_num)
+            this.setState({
+                runningTime: false,
+                disabledTouchableOpacityStart: false,
+                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityNext: true,
+                disabledTouchableOpacityBack: true,
+                countdownStart: 120,
+            });
+        }
+        
+        else {
             console.log("back ;",this.props.VideoReducer.command_num)
             this.setState({
                 

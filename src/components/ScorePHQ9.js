@@ -10,6 +10,7 @@ export default class ScorePHQ9 extends Score {
             questionnaire: null,
             sum: 0,
             sumfull: 0,
+            render_type: 'PHQ9',
         };
         this.props.navigation.setOptions({
             headerTitle: () => (

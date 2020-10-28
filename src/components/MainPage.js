@@ -6,12 +6,18 @@ import {
     View,
     StyleSheet,
 } from 'react-native';
+
 import {
     color1,
     NavigationName,
 } from '../constants';
 
 class MainPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.navigation.navigate(NavigationName.ListAdminPage, {
+        });
+    }
     render() {
         return (
             <View style={styles.container}>

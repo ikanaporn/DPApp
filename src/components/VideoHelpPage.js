@@ -65,29 +65,28 @@ class VideoHelpPage extends React.Component {
                                 source={require("../../assets/img/next.png")}
                             />
                             {" "}เพื่อไปยังข้อถัดไป{"\n"}{"\n"}
-                            - สัญญาณเสียงเริ่ม คือเสียง{"\n"}
                         </Text>
-                        
-                        <TouchableOpacity
-                            style={{
-                                width: 50,
-                                height: 50,
-                            }}
-                            onPress={this.playSound}
-                        >
-                            <Image
+                        <View style={{ height: 50, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 16, justifyContent: 'center' }}>- สัญญาณเสียงเริ่ม คือเสียง</Text>
+                            <TouchableOpacity
                                 style={{
                                     width: 50,
                                     height: 50,
                                 }}
-                                source={require("../../assets/img/volume.png")}
-                            />
-                       
-                        </TouchableOpacity> 
-                        
+                                onPress={this.playSound}
+                            >
+                                <Image
+                                    style={{
+                                        width: 50,
+                                        height: 50,
+                                    }}
+                                    source={require("../../assets/img/volume.png")}
+                                />
+
+                            </TouchableOpacity>
+                        </View>
                         <Text style={{ fontSize: 16, justifyContent: 'center' }}>
-                            {" "}(กดรูปลำโพงเพื่อลองฟังเสียง){"\n"}
-                        
+                            {/* {" "}(กดรูปลำโพงเพื่อลองฟังเสียง){"\n"} */}
                             - ต่อไปนี้จะเป็นแบบทดสอบที่ท่านจะถูกบันทึกภาพและเสียง เมื่อใบหน้าของท่านไม่อยู่ในกรอบจะมีสัญญาณเตือน ขอให้ท่านขยับใบหน้าให้อยู่ในบริเวณเส้นประที่กำหนด{"\n"}
                             - ใบหน้าของท่านจะถูกปิดด้วยแถบสีเทา
                         </Text>
@@ -96,7 +95,7 @@ class VideoHelpPage extends React.Component {
                     <TouchableOpacity
                         style={[styles.button, styles.buttonvideo]}
                         onPress={() => {
-                            this.props.navigation.navigate(NavigationName.VideoPage,
+                            this.props.navigation.navigate(NavigationName.VideoRenderPage,
                                 { volunteer: this.props.route.params.volunteer, }
                             )
                         }}

@@ -7,6 +7,7 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
+
 import {
     bar,
     color1,
@@ -20,17 +21,13 @@ class ListAdminPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { data: null };
-
-        const { navigation } = this.props;
-        navigation.addListener('focus', () => {
+        this.props.navigation.addListener('focus', () => {
             this.getData();
         });
     }
-
     componentDidMount() {
         this.getData();
     }
-
     async getData() {
         try {
             var data = await listUser();
@@ -39,7 +36,6 @@ class ListAdminPage extends React.Component {
             return [];
         }
     }
-
     render() {
         return (
             <View style={styles.container}>
@@ -49,9 +45,7 @@ class ListAdminPage extends React.Component {
                         style={[styles.button, { backgroundColor: color1[4], borderColor: color1[4] }]}
                         onPress={() => {
                             this.props.navigation.navigate(
-                                NavigationName.AdminQuestion,
-                                {
-                                }
+                                NavigationName.AdminQuestion, {}
                             )
                         }}
                     >
@@ -66,6 +60,7 @@ class ListAdminPage extends React.Component {
                             this.setState({ isScrollable: false });
                     }}
                 >
+                    <Text>กดค้างเพื่อแก้ไขประเภทอาสามัคร</Text>
                     {this.state.data == null
                         ? <Text>Loading</Text>
                         : this.state.data.map((obj, index) => {
@@ -74,12 +69,25 @@ class ListAdminPage extends React.Component {
                                     key={index}
                                     style={[styles.button,]}
                                     onPress={() => {
+                                        this.props.navigation.goBack();
                                         this.props.navigation.navigate(
-                                            NavigationName.AdminQuestion,
-                                            {
-                                                volunteer: obj,
-                                            }
-                                        )
+                                            NavigationName.ListVolunteerPage, {
+                                            volunteer: obj,
+                                        })
+                                        this.props.navigation.navigate(
+                                            NavigationName.VolunteerPage, {
+                                            volunteer: obj,
+                                        })
+                                        this.props.navigation.navigate(
+                                            NavigationName.BasicQuestion, {
+                                            volunteer: obj,
+                                        })
+                                    }}
+                                    onLongPress={() => {
+                                        this.props.navigation.navigate(
+                                            NavigationName.AdminQuestion, {
+                                            volunteer: obj,
+                                        })
                                     }}
                                 >
                                     <Text style={[styles.buttonText,]}>{obj.id}</Text>

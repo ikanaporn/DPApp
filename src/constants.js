@@ -42,6 +42,7 @@ export const NavigationName = {
     ScorePHQ9: "คะแนน PHQ9",
     VideoPage: "วิดีโอ",
     VideoHelpPage: "คำแนะนำ",
+    VideoRenderPage: "ติดตั้ง",
     //MainPage: "หน้าหลัก",
 }
 
@@ -52,3 +53,39 @@ export const TIMER_STOP = "TIMER_STOP";
 
 export const NEXT_COMMAND = "NEXT_COMMAND";
 export const BACK_COMMAND = "BACK_COMMAND";
+
+//0-7, 8-12, 13-17, 18
+export var HAMILTON_SCALE = [
+    'green', //0
+    'green', //1
+    'green', //2
+    'green', //3
+    'green', //4
+    'green', //5
+    'green', //6
+    'green', //7
+    'yellow', //8
+    'yellow', //9
+    'yellow', //10
+    'yellow', //11
+    'yellow', //12
+    'darkorange', //13
+    'darkorange', //14
+    'darkorange', //15
+    'darkorange', //16
+    'darkorange', //17
+    'red', //18
+];
+//9
+export const PHQ9_SCALE = [
+    'green', //0
+    'green', //1
+    'green', //2
+    'green', //3
+    'green', //4
+    'green', //5
+    'green', //6
+    'green', //7
+    'green', //8
+    'red', //9
+];

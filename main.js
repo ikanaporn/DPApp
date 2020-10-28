@@ -26,6 +26,7 @@ import ScoreHamilton from './components/ScoreHamilton';
 import ScorePHQ9 from './components/ScorePHQ9';
 import VideoPage from './components/VideoPage';
 import VideoHelpPage from './components/VideoHelpPage';
+import VideoRenderPage from './components/VideoRenderPage';
 
 const Stack = createStackNavigator();
 
@@ -34,17 +35,6 @@ class Main extends React.Component {
         return (
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen
-                        name={NavigationName.VideoPage}
-                        component={VideoPage}
-                        options={{
-                            title: 'วิดีโอ',
-                            headerStyle: [styles.headerStyle,],
-                            headerTintColor: 'white',
-                            headerTitleStyle: [styles.headerTitleStyle,],
-                            headerLeft: null,
-                        }}
-                    />
                     <Stack.Screen
                         name={NavigationName.MainPage}
                         component={MainPage}
@@ -125,7 +115,7 @@ class Main extends React.Component {
                             headerLeft: null,
                         }}
                     />
-                    {/* <Stack.Screen
+                    <Stack.Screen
                         name={NavigationName.VideoPage}
                         component={VideoPage}
                         options={{
@@ -135,7 +125,7 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                             headerLeft: null,
                         }}
-                    /> */}
+                    />
                     <Stack.Screen
                         name={NavigationName.ViewAdminQuestion}
                         component={ViewAdminQuestion}
@@ -196,6 +186,16 @@ class Main extends React.Component {
                         component={VideoHelpPage}
                         options={{
                             title: 'คำแนะนำ',
+                            headerStyle: [styles.headerStyle,],
+                            headerTintColor: 'white',
+                            headerTitleStyle: [styles.headerTitleStyle,],
+                        }}
+                    />
+                    <Stack.Screen
+                        name={NavigationName.VideoRenderPage}
+                        component={VideoRenderPage}
+                        options={{
+                            title: 'ติดตั้งกล้อง',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],

@@ -19,6 +19,7 @@ export default (state = INITIAL_STATE, action) => {
     if (state.command_num == 31) {
         action.navigation.goBack();
         action.navigation.goBack();
+        action.navigation.goBack();
         return {
             command_num: num,
             element: VideoInitial[num],
