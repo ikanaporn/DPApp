@@ -50,6 +50,9 @@ const makeReducer = (initialState, Initial, name) => (state = initialState, acti
             action.navigation.navigate(NavigationName.VolunteerPage, {
                 volunteer: { id: state.volunteer_id },
             });
+            action.navigation.navigate(NavigationName.BasicQuestion, {
+                volunteer: { id: state.volunteer_id },
+            });
             return {
                 name: 'AdminReducer',
                 question_id: num,
