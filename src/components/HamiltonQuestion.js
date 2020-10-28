@@ -26,30 +26,29 @@ class HamiltonQuestion extends Questionnaire {
             )
         });
     }
-    componentDidMount() {
-        this.getData(this.props, this.props.HamiltonReducer, ReducerName);
+    async componentDidMount() {
+        await this.getData(this.props, this.props.HamiltonReducer, ReducerName);
     }
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.getData(nextProps, nextProps.HamiltonReducer, ReducerName);
+    async UNSAFE_componentWillReceiveProps(nextProps) {
+        await this.getData(nextProps, nextProps.HamiltonReducer, ReducerName);
     }
     render() {
-        var Reducer = this.props.HamiltonReducer;
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)
                     ? <Text>Loading</Text>
                     : <View style={[styles.container, { width: '100%' }]}>
-                        <ProgressBar max={Reducer.question.test_length} step_no={Reducer.question.step_no} />
-                        {(typeof Reducer.question.branch === 'undefined') ? null :
-                            Reducer.question.branch.map((obj, index) => {
+                        <ProgressBar max={this.props.HamiltonReducer.question.test_length} step_no={this.props.HamiltonReducer.question.step_no} />
+                        {(typeof this.props.HamiltonReducer.question.branch === 'undefined') ? null :
+                            this.props.HamiltonReducer.question.branch.map((obj, index) => {
                                 return (
                                     <ProgressBar key={index} max={obj.test_length} step_no={obj.step_no} color={color_ProgreesBar[index]} />
                                 );
                             })}
 
-                        {Reducer.question.answer_type != "selectedtext" ?
-                            <ScrollView style={styles.box} persistentScrollbar={true}>{this.renderQuestion(Reducer, ReducerName)}</ScrollView> :
-                            <SafeAreaView style={styles.box}>{this.renderQuestion(Reducer, ReducerName)}</SafeAreaView>}
+                        {this.props.HamiltonReducer.question.answer_type != "selectedtext" ?
+                            <ScrollView style={styles.box} persistentScrollbar={true}>{this.renderQuestion(this.props.HamiltonReducer, ReducerName)}</ScrollView> :
+                            <SafeAreaView style={styles.box}>{this.renderQuestion(this.props.HamiltonReducer, ReducerName)}</SafeAreaView>}
                     </View>
                 }
             </View>

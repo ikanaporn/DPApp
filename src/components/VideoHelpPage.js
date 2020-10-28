@@ -34,6 +34,7 @@ class VideoHelpPage extends React.Component {
                                 style={{
                                     width: 70,
                                     height: 50,
+                                    resizeMode: 'stretch',
                                 }}
                                 source={require("../../assets/img/start.png")}
                             />
@@ -43,6 +44,7 @@ class VideoHelpPage extends React.Component {
                                 style={{
                                     width: 70,
                                     height: 50,
+                                    resizeMode: 'stretch',
                                 }}
                                 source={require("../../assets/img/stop.png")}
                             />
@@ -52,22 +54,28 @@ class VideoHelpPage extends React.Component {
                                 style={{
                                     width: 70,
                                     height: 50,
+                                    resizeMode: 'stretch',
                                 }}
                                 source={require("../../assets/img/back.png")}
                             />
-                            {" "}เพื่อย้อนกลับ{"\n"}
+                            {" "}เพื่อย้อนกลับไปยังข้อก่อนหน้า{"\n"}
                             - กด{" "}
                             <Image
                                 style={{
                                     width: 70,
                                     height: 50,
+                                    resizeMode: 'stretch',
                                 }}
                                 source={require("../../assets/img/next.png")}
                             />
                             {" "}เพื่อไปยังข้อถัดไป{"\n"}{"\n"}
                         </Text>
-                        <View style={{ height: 50, flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 16, justifyContent: 'center' }}>- สัญญาณเสียงเริ่ม คือเสียง</Text>
+                        <View style={{ height: 50, flexDirection: 'row', justifyContent: 'center', }}>
+                            <View style={{ height: 50, justifyContent: 'center', }}>
+                                <Text style={{ fontSize: 16, }}>
+                                    - สัญญาณเสียงเริ่ม คือเสียง
+                            </Text>
+                            </View>
                             <TouchableOpacity
                                 style={{
                                     width: 50,
@@ -85,11 +93,6 @@ class VideoHelpPage extends React.Component {
 
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontSize: 16, justifyContent: 'center' }}>
-                            {/* {" "}(กดรูปลำโพงเพื่อลองฟังเสียง){"\n"} */}
-                            - ต่อไปนี้จะเป็นแบบทดสอบที่ท่านจะถูกบันทึกภาพและเสียง เมื่อใบหน้าของท่านไม่อยู่ในกรอบจะมีสัญญาณเตือน ขอให้ท่านขยับใบหน้าให้อยู่ในบริเวณเส้นประที่กำหนด{"\n"}
-                            - ใบหน้าของท่านจะถูกปิดด้วยแถบสีเทา
-                        </Text>
                     </View>
 
                     <TouchableOpacity
