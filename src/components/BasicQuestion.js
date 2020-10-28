@@ -32,8 +32,8 @@ class BasicQuestion extends Questionnaire {
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.getData(nextProps, nextProps.BasicReducer, ReducerName);
     }
-    render() {
-        var Reducer = this.props.BasicReducer;
+    async render() {
+        var Reducer = await this.props.BasicReducer;
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)

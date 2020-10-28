@@ -32,8 +32,8 @@ class PHQ9Question extends Questionnaire {
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.getData(nextProps, nextProps.PHQ9Reducer, ReducerName);
     }
-    render() {
-        var Reducer = this.props.PHQ9Reducer;
+    async render() {
+        var Reducer = await this.props.PHQ9Reducer;
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)

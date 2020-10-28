@@ -26,14 +26,14 @@ class HamiltonQuestion extends Questionnaire {
             )
         });
     }
-    componentDidMount() {
-        this.getData(this.props, this.props.HamiltonReducer, ReducerName);
+    async componentDidMount() {
+        await this.getData(this.props, this.props.HamiltonReducer, ReducerName);
     }
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.getData(nextProps, nextProps.HamiltonReducer, ReducerName);
+    async UNSAFE_componentWillReceiveProps(nextProps) {
+        await this.getData(nextProps, nextProps.HamiltonReducer, ReducerName);
     }
-    render() {
-        var Reducer = this.props.HamiltonReducer;
+    async render() {
+        var Reducer = await this.props.HamiltonReducer;
         return (
             <View style={styles.container}>
                 {!(this.state.ready || this.state.ready_alway)
