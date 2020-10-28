@@ -1,4 +1,4 @@
-import React, { Component,  PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import CountDown from 'react-native-countdown-component';
 import { View } from 'react-native';
 class Timer extends React.Component {
@@ -15,16 +15,16 @@ class Timer extends React.Component {
                     onFinish={this.props.onFinish}
                     // digitStyle={{backgroundColor: '#FFF'}}
                     // digitTxtStyle={{color: '#1CC625'}}
-                    digitStyle={{backgroundColor: '#fff'}}
-                    digitTxtStyle={{color: '#66918F'}}
-                    timeToShow={['M','S']}
-                    separatorStyle={{color: '#66918F'}}
-                    timeLabels={{m: '', s: ''}}
+                    digitStyle={{ backgroundColor: '#fff', width: 35, height: 20 }}
+                    digitTxtStyle={{ color: '#66918F' }}
+                    timeToShow={['M', 'S']}
+                    separatorStyle={{ color: '#66918F' }}
+                    timeLabels={{ m: '', s: '' }}
                     running={this.props.runningTime}
                     showSeparator
                 />
 
-              
+
 
             </View>
         )
