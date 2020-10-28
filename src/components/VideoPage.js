@@ -37,6 +37,7 @@ import VideoReducer from "../reducers/VideoReducer";
 import CountDown from 'react-native-countdown-component';
 import moment from 'moment';
 
+
 YellowBox.ignoreWarnings(["Setting a timer"]);
 const _console = _.clone(console);
 console.warn = (message) => {
@@ -153,6 +154,7 @@ class VideoPage extends React.Component {
             popup_text: "",
             is_hided_speaker: true,
         };
+       
     }
 
     static defaultProps = {
@@ -258,6 +260,7 @@ class VideoPage extends React.Component {
         clearTimeout(timeout2);
         sound1.stopAsync();
         sound2.stopAsync();
+       // console.countReset(`${this.constructor.name}.render calls`);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -275,6 +278,8 @@ class VideoPage extends React.Component {
     }
 
     startRunningTime = () => {
+        //const timestamp = MediaLibrary.getAssetInfoAsync(asset, options)
+
         console.log("start no : ",this.props.VideoReducer.command_num)
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
@@ -312,7 +317,7 @@ class VideoPage extends React.Component {
                 this.setState({
                     runningTime: true,
                     disabledTouchableOpacityStart: true,
-                    disabledTouchableOpacityStop: false,
+                    disabledTouchableOpacityStop: true,
                     disabledTouchableOpacityNext: true,
                     disabledTouchableOpacityBack: true,
                     countdownStart: 15,
@@ -674,7 +679,7 @@ class VideoPage extends React.Component {
         await this.camera.recordAsync().then((file) => {
             console.log("Video has been recorded");
             console.log("file", file.uri)
-            const asset = MediaLibrary.createAssetAsync(file.uri);
+            //const asset = MediaLibrary.createAssetAsync(file.uri);
         });
 
     }
