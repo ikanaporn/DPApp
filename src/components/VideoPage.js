@@ -669,7 +669,7 @@ class VideoPage extends React.Component {
                 <View style={{ flex: 0.97 }}>
 
                     <View style={{ backgroundColor: '#ffffff', flex: 0.7, margin: 10, padding: 10, borderRadius: 10,marginTop:4 }}>
-                        <View key={this.state.uniqueValue} style={{ flex: 0.07, alignItems: 'flex-end', flexDirection: 'column-reverse'  }}>
+                        <View key={this.state.uniqueValue} style={{ flex: 0.07, alignItems: 'flex-end', flexDirection: 'column-reverse', marginTop: 5 }}>
                             <Timer
                                 runningTime={this.state.runningTime}
                                 countdownStart={this.state.countdownStart}

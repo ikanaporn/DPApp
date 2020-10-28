@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
         marginBottom: 3,
         marginTop: 3,
         width: "98%",
+       // height: "80%",
         alignSelf: 'center',
         justifyContent: "center",
     },
