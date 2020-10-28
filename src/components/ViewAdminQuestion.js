@@ -9,11 +9,9 @@ export default class ViewAdminQuestion extends ViewQuestion {
             render_type: 'ADMIN'
         };
     }
-
     componentDidMount() {
         this.getData('AdminReducer');
     }
-
     render() {
         return this.renderQuestion();
     }

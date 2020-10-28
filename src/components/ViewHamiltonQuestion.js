@@ -9,11 +9,9 @@ export default class ViewHamiltonQuestion extends ViewQuestion {
             render_type: 'HAMILTON'
         };
     }
-
     componentDidMount() {
         this.getData('HamiltonReducer');
     }
-
     render() {
         return this.renderQuestion();
     }

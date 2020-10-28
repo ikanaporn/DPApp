@@ -9,11 +9,9 @@ export default class ViewBasicQuestion extends ViewQuestion {
             render_type: 'BASIC'
         };
     }
-
     componentDidMount() {
         this.getData('BasicReducer');
     }
-
     render() {
         return this.renderQuestion();
     }

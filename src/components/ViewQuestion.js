@@ -3,13 +3,12 @@ import {
     Text,
     View,
     ScrollView,
-    Image,
     Dimensions,
+    TouchableOpacity,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from '../css';
-import { bar, } from '../constants';
+import { bar, color1, NavigationName } from '../constants';
 import { getQuestionnaire } from '../server/server';
 
 const win_height = Dimensions.get('window').height;
@@ -23,7 +22,6 @@ export default class ViewQuestion extends Component {
             return null;
         }
     }
-
     renderAnswer(question, answer_type, choices, is_show_content_choice, selected_index, select_multiple_index, text_data, remark,) {
         var render_question =
             <View style={styles.button}>
@@ -143,7 +141,6 @@ export default class ViewQuestion extends Component {
                 return null;
         }
     }
-
     renderQuestion() {
         switch (this.state.render_type) {
             case 'ADMIN':
@@ -188,7 +185,7 @@ export default class ViewQuestion extends Component {
         return (
             <View style={[styles.container, { justifyContent: 'center' }]}>
                 {this.state.isScrollable ? bar : null}
-                <ScrollView style={styles.box}
+                <ScrollView style={styles.box2}
                     onContentSizeChange={(width, height) => {
                         if (height > (win_height * 0.82))
                             this.setState({ isScrollable: true });
@@ -215,6 +212,26 @@ export default class ViewQuestion extends Component {
                             );
                         })}
                 </ScrollView>
+                <View style={styles.box1}>
+                    <TouchableOpacity
+                        style={[styles.buttonnext, {
+                            backgroundColor: color1[4],
+                            borderColor: color1[4],
+                            height: '80%',
+                            justifyContent: 'center'
+                        }]}
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                            this.props.navigation.navigate(
+                                NavigationName.HamiltonQuestion, {
+                                volunteer: { id: this.props.route.params.volunteer.id },
+                            }
+                            )
+                        }}
+                    >
+                        <Text style={[styles.buttonTextNext, { color: 'white', fontWeight: 'bold', }]}>แบบทดสอบถัดไป</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }

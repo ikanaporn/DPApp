@@ -7,6 +7,7 @@ import {
     ScrollView,
     Dimensions,
 } from 'react-native';
+
 import {
     bar,
     color1,
@@ -20,17 +21,13 @@ class ListVolunteerPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { data: null };
-
-        const { navigation } = this.props;
-        navigation.addListener('focus', () => {
+        this.props.navigation.addListener('focus', () => {
             this.getData();
         });
     }
-
     componentDidMount() {
         this.getData();
     }
-
     async getData() {
         try {
             var data = await listUser();
@@ -39,7 +36,6 @@ class ListVolunteerPage extends React.Component {
             return [];
         }
     }
-
     render() {
         return (
             <View style={styles.container}>

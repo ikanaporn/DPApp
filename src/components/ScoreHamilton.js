@@ -10,6 +10,7 @@ export default class ScoreHamilton extends Score {
             questionnaire: null,
             sum: 0,
             sumfull: 0,
+            render_type: 'HAMILTON',
         };
         this.props.navigation.setOptions({
             headerTitle: () => (

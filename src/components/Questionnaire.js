@@ -172,9 +172,11 @@ export default class Questionnaire extends Component {
                         <TouchableOpacity
                             style={styles.buttonnext}
                             onPress={() => {
-                                var text_data = this.state.TextInput;
-                                var selected_index = null;
-                                this.save_question(Reducer, ReducerName, selected_index, this.state.select_multiple_index, text_data);
+                                if (this.state.TextInput) {
+                                    var text_data = this.state.TextInput;
+                                    var selected_index = null;
+                                    this.save_question(Reducer, ReducerName, selected_index, this.state.select_multiple_index, text_data);
+                                }
                             }}
                         >
                             <Text style={[styles.buttonText, styles.buttonTextNext]}>
@@ -612,7 +614,7 @@ export default class Questionnaire extends Component {
                     {Reducer.question_id > 0
                         ?
                         <TouchableOpacity
-                            style={styles.buttonback}
+                            style={[styles.buttonback, { height: '80%', justifyContent: 'center', }]}
                             onPress={() => {
                                 this.props.Back(ReducerName, this.props.navigation, this.props.route,);
                             }}
