@@ -95,7 +95,7 @@ class VideoHelpPage extends React.Component {
                     <TouchableOpacity
                         style={[styles.button, styles.buttonvideo]}
                         onPress={() => {
-                            this.props.navigation.navigate(NavigationName.VideoRenderPage,
+                            this.props.navigation.navigate(NavigationName.VideoPage,
                                 { volunteer: this.props.route.params.volunteer, }
                             )
                         }}

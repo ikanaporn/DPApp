@@ -26,6 +26,7 @@ import ScoreHamilton from './components/ScoreHamilton';
 import ScorePHQ9 from './components/ScorePHQ9';
 import VideoPage from './components/VideoPage';
 import VideoHelpPage from './components/VideoHelpPage';
+import VideoRenderPage from './components/VideoRenderPage';
 
 const Stack = createStackNavigator();
 
@@ -193,6 +194,16 @@ class Main extends React.Component {
                         }}
                     />
                 </Stack.Navigator>
+                <Stack.Screen
+                        name={NavigationName.VideoRenderPage}
+                        component={VideoRenderPage}
+                        options={{
+                            title: 'ติดตั้ง',
+                            headerStyle: [styles.headerStyle,],
+                            headerTintColor: 'white',
+                            headerTitleStyle: [styles.headerTitleStyle,],
+                        }}
+                    />
             </NavigationContainer>
         );
     }

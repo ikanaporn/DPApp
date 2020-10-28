@@ -26,7 +26,7 @@ import ScoreHamilton from './components/ScoreHamilton';
 import ScorePHQ9 from './components/ScorePHQ9';
 import VideoPage from './components/VideoPage';
 import VideoHelpPage from './components/VideoHelpPage';
-import VideoRenderPage from './components/VideoRenderPage';
+//import VideoRenderPage from './components/VideoRenderPage';
 
 const Stack = createStackNavigator();
 
@@ -195,7 +195,7 @@ class Main extends React.Component {
                         name={NavigationName.VideoRenderPage}
                         component={VideoRenderPage}
                         options={{
-                            title: 'ติดตั้งกล้อง',
+                            title: 'ติดตั้ง',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
