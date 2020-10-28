@@ -5,11 +5,13 @@ export default class ViewHamiltonQuestion extends ViewQuestion {
         super(props);
         this.state = {
             questionnaire: null,
-            volunteer_id: this.props.route.params.volunteer.id,
             render_type: 'HAMILTON'
         };
     }
     componentDidMount() {
+        this.setState({
+            volunteer_id: this.props.route.params.volunteer.id,
+        })
         this.getData('HamiltonReducer');
     }
     render() {

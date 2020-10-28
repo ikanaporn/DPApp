@@ -9,8 +9,8 @@ export default class ViewPHQ9Question extends ViewQuestion {
             render_type: 'PHQ9'
         };
     }
-    componentDidMount() {
-        this.getData('PHQ9Reducer');
+    async componentDidMount() {
+        await this.getData('PHQ9Reducer');
     }
     render() {
         return this.renderQuestion();

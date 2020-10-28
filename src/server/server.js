@@ -20,8 +20,7 @@ async function listUser() {
 }
 
 async function getQuestionnaire(userId, type) {
-    const snapshot = await firebase.database().ref("/" + userId + "/" + type).once('value');
-    return snapshot.val();
+    return await (await firebase.database().ref("/" + userId + "/" + type).once('value')).val();
 }
 
 async function getQuestion(userId, type, question_id) {

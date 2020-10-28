@@ -35,8 +35,6 @@ class Main extends React.Component {
         return (
             <NavigationContainer>
                 <Stack.Navigator>
-                    
-                   
                     <Stack.Screen
                         name={NavigationName.MainPage}
                         component={MainPage}
@@ -193,17 +191,17 @@ class Main extends React.Component {
                             headerTitleStyle: [styles.headerTitleStyle,],
                         }}
                     />
-                </Stack.Navigator>
-                <Stack.Screen
+                    <Stack.Screen
                         name={NavigationName.VideoRenderPage}
                         component={VideoRenderPage}
                         options={{
-                            title: 'ติดตั้ง',
+                            title: 'ติดตั้งกล้อง',
                             headerStyle: [styles.headerStyle,],
                             headerTintColor: 'white',
                             headerTitleStyle: [styles.headerTitleStyle,],
                         }}
                     />
+                </Stack.Navigator>
             </NavigationContainer>
         );
     }

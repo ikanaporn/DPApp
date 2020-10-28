@@ -16,8 +16,7 @@ const win_height = Dimensions.get('window').height;
 export default class ViewQuestion extends Component {
     async getData(name) {
         try {
-            var data = await getQuestionnaire(this.state.volunteer_id, name);
-            this.setState({ questionnaire: data });
+            this.setState({ questionnaire: await getQuestionnaire(this.state.volunteer_id, name) });
         } catch (err) {
             return null;
         }

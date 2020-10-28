@@ -885,10 +885,15 @@ class VideoPage extends React.Component {
                                     runClassifications: FaceDetector.Constants.Classifications.all,
                                     tracking: true,
                                 }}
+                                // onCameraReady={async () => {
+                                //     this.setState({ ready: true })
+                                //     await this.camera.getSupportedRatiosAsync();
+                                //     //console.log('onCameraReady ratios: ', ratios);
+                                // }}
                                 onCameraReady={async () => {
                                     this.setState({ ready: true })
-                                    await this.camera.getSupportedRatiosAsync();
-                                    //console.log('onCameraReady ratios: ', ratios);
+                                    var ratios = await this.camera.getSupportedRatiosAsync();
+                                    console.log('onCameraReady ratios: ', ratios);
                                 }}
                             >
                                 <View
