@@ -250,7 +250,6 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
-        this.recordVideo();
         setInterval(() => {
             this.setState({
               curTime : new Date().toLocaleString()
@@ -300,7 +299,9 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
-        if (this.props.VideoReducer.command_num == 0) {            
+        if (this.props.VideoReducer.command_num == 0) {
+            this.recordVideo()
+            
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
@@ -708,7 +709,7 @@ class VideoPage extends React.Component {
         await this.camera.recordAsync().then((file) => {
             console.log("Video has been recorded");
             console.log("file", file.uri)
-            //const asset = MediaLibrary.createAssetAsync(file.uri);
+            const asset = MediaLibrary.createAssetAsync(file.uri);
         });
 
     }
