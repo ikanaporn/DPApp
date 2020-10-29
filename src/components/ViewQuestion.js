@@ -141,46 +141,6 @@ export default class ViewQuestion extends Component {
         }
     }
     renderQuestion() {
-        switch (this.state.render_type) {
-            case 'ADMIN':
-                this.props.navigation.setOptions({
-                    headerTitle: () => (
-                        <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลอาสาสมัคร รหัส: {this.props.route.params.volunteer.id}</Text>
-                        </View>
-                    )
-                });
-                break;
-            case 'BASIC':
-                this.props.navigation.setOptions({
-                    headerTitle: () => (
-                        <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>ข้อมูลพื้นฐาน รหัส: {this.props.route.params.volunteer.id}</Text>
-                        </View>
-                    )
-                });
-                break;
-            case 'HAMILTON':
-                this.props.navigation.setOptions({
-                    headerTitle: () => (
-                        <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบวัด HAMILTON รหัส: {this.props.route.params.volunteer.id}</Text>
-                        </View>
-                    )
-                });
-                break;
-            case 'PHQ9':
-                this.props.navigation.setOptions({
-                    headerTitle: () => (
-                        <View>
-                            <Text style={[{ color: 'white', fontWeight: 'bold', },]}>แบบประเมิน PHQ9 รหัส: {this.props.route.params.volunteer.id}</Text>
-                        </View>
-                    )
-                });
-                break;
-            default:
-                break;
-        }
         return (
             <View style={[styles.container, { justifyContent: 'center' }]}>
                 {this.state.isScrollable ? bar : null}
