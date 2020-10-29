@@ -218,8 +218,12 @@ class VideoPage extends React.Component {
                 await sound2.stopAsync();
                 await sound2.playAsync();
             }, 10 * 1000); //millisec
+            setTimeout(async () => {
+                self.onFinishTimer2()
+            },10000);
+            
         }, duratioin_sound1);
-        this.onFinish()
+        
     }
 
   
@@ -287,14 +291,8 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
-<<<<<<< HEAD
         if (this.props.VideoReducer.command_num == 0) {    
             this.recordVideo();        
-=======
-        if (this.props.VideoReducer.command_num == 0) {
-            this.recordVideo()
-            
->>>>>>> 737a9a9eaae032023c0fc307c18e33cd40c1eaac
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
@@ -504,12 +502,11 @@ class VideoPage extends React.Component {
             this.props.VideoReducer.command_num == 21 ||
             this.props.VideoReducer.command_num == 22 ||
             this.props.VideoReducer.command_num == 23 ||
-            this.props.VideoReducer.command_num == 24 ||
-            this.props.VideoReducer.command_num == 25 ) {
+            this.props.VideoReducer.command_num == 24 ) {
             console.log("isAudio :",this.props.VideoReducer.command_num  )
             this.setState({
                 runningTime: false,
-                disabledTouchableOpacityStart: false,
+                disabledTouchableOpacityStart: true,
                 disabledTouchableOpacityStop: true,
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
@@ -566,16 +563,7 @@ class VideoPage extends React.Component {
             });
         }
 
-        if (this.props.VideoReducer.command_num == 15) {
-            console.log("15")
-            this.setState({
-                disabledTouchableOpacityNext: false,
-                disabledTouchableOpacityStart: true,
-                disabledTouchableOpacityStop: true,
-                disabledTouchableOpacityBack: true,
-                //countdownStart: 120
-            });
-        }
+        
        
         
         else {
@@ -591,7 +579,8 @@ class VideoPage extends React.Component {
     };
 
     onFinishTimer2 = () => {
-        console.log(" onFinishTimer2")
+        
+            console.log("15")
             this.setState({
                 runningTime: true,
                 disabledTouchableOpacityNext: true,
@@ -600,6 +589,7 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityBack: true,
                 //countdownStart: 120
             });
+        
     };
     
 
@@ -789,7 +779,7 @@ class VideoPage extends React.Component {
                                                 <Timer2
                                                     runningTime={true}
                                                     countdownStart={10}
-                                                    // onFinish={this.onFinish}
+                                                    onFinish={this.onFinish}
                                                 />
                                                 
                                                 </View>
