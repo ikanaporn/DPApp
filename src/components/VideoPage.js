@@ -209,19 +209,6 @@ class VideoPage extends React.Component {
             await sound1.stopAsync();
             console.log("timeouttttttttttttttttttttt");
             
-            // this.setState({
-            //     countdownShow: true
-            // })
-            // Set Timer
-            //this.renderTimerCountdown()
-            // <View>
-            //      <Timer2
-            //     runningTime={this.state.runningTime2}
-            //     countdownStart={this.state.countdownStart2}
-                
-            // />
-            // </View>
-
             self.setState({
                 popup_text: self.props.VideoReducer.element.data,
                 is_hided_speaker: false,
@@ -232,6 +219,7 @@ class VideoPage extends React.Component {
                 await sound2.playAsync();
             }, 10 * 1000); //millisec
         }, duratioin_sound1);
+        this.onFinish()
     }
 
   
@@ -259,19 +247,19 @@ class VideoPage extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this.state.recording) {
-            console.log("saved video");
-            this.stopRecordViedo();
-        } else {
-            console.log("Video not record");
-        }
+        // if (this.state.recording) {
+        //     console.log("saved video");
+        //     this.stopRecordViedo();
+        // } else {
+        //     console.log("Video not record");
+        // }
         clearTimeout(timeout_instruct);
         clearTimeout(timeout10s);
         clearTimeout(timeout1);
         clearTimeout(timeout2);
         sound1.stopAsync();
         sound2.stopAsync();
-       // console.countReset(`${this.constructor.name}.render calls`);
+       
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -300,12 +288,13 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
-        if (this.props.VideoReducer.command_num == 0) {            
+        if (this.props.VideoReducer.command_num == 0) {    
+            this.recordVideo();        
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
             })
-            //console.log("curTime_start",this.state.curTime)
+           
         }
 
         if (
@@ -376,7 +365,7 @@ class VideoPage extends React.Component {
                 disabledTouchableOpacityBack: true,
             });
         } 
-        else if (this.props.VideoReducer.command_num == 31) {
+        else if (this.props.VideoReducer.command_num == 3) {
             console.log("stop record , ",this.props.VideoReducer.command_num)
             if (this.state.recording) {
                 //console.log("saved video",this.camera)
@@ -500,7 +489,18 @@ class VideoPage extends React.Component {
                 console.log("Video not record")
             }
         }
-        else if (this.props.VideoReducer.command_num == 14) {
+        else if (this.props.VideoReducer.command_num == 14 ||
+            this.props.VideoReducer.command_num == 15 ||
+            this.props.VideoReducer.command_num == 16 ||
+            this.props.VideoReducer.command_num == 17 ||
+            this.props.VideoReducer.command_num == 18 ||
+            this.props.VideoReducer.command_num == 19 ||
+            this.props.VideoReducer.command_num == 20 ||
+            this.props.VideoReducer.command_num == 21 ||
+            this.props.VideoReducer.command_num == 22 ||
+            this.props.VideoReducer.command_num == 23 ||
+            this.props.VideoReducer.command_num == 24 ||
+            this.props.VideoReducer.command_num == 25 ) {
             console.log("isAudio :",this.props.VideoReducer.command_num  )
             this.setState({
                 runningTime: false,
@@ -550,8 +550,19 @@ class VideoPage extends React.Component {
 
     onFinish = () => {
        
-        
+        console.log("onFinish")
         if (this.props.VideoReducer.command_num == 0) {
+            this.setState({
+                disabledTouchableOpacityNext: false,
+                disabledTouchableOpacityStart: true,
+                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityBack: true,
+                //countdownStart: 120
+            });
+        }
+
+        if (this.props.VideoReducer.command_num == 15) {
+            console.log("15")
             this.setState({
                 disabledTouchableOpacityNext: false,
                 disabledTouchableOpacityStart: true,
@@ -563,6 +574,7 @@ class VideoPage extends React.Component {
        
         
         else {
+            console.log("other")
             this.setState({
             disabledTouchableOpacityNext: false,
             disabledTouchableOpacityStart: true,
@@ -576,9 +588,10 @@ class VideoPage extends React.Component {
     onFinishTimer2 = () => {
         console.log(" onFinishTimer2")
             this.setState({
+                runningTime: true,
                 disabledTouchableOpacityNext: true,
-                disabledTouchableOpacityStart: false,
-                disabledTouchableOpacityStop: true,
+                disabledTouchableOpacityStart: true,
+                disabledTouchableOpacityStop: false,
                 disabledTouchableOpacityBack: true,
                 //countdownStart: 120
             });
@@ -708,7 +721,7 @@ class VideoPage extends React.Component {
         await this.camera.recordAsync().then((file) => {
             console.log("Video has been recorded");
             console.log("file", file.uri)
-            //const asset = MediaLibrary.createAssetAsync(file.uri);
+            const asset = MediaLibrary.createAssetAsync(file.uri);
         });
 
     }
@@ -771,9 +784,9 @@ class VideoPage extends React.Component {
                                                 <Timer2
                                                     runningTime={true}
                                                     countdownStart={10}
-                                                    //onFinishTimer2={this.onFinishTimer2}
+                                                    // onFinish={this.onFinish}
                                                 />
-                                                {this.onFinishTimer2}
+                                                
                                                 </View>
                                                 
                                             :
