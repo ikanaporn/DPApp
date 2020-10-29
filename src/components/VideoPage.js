@@ -238,7 +238,6 @@ class VideoPage extends React.Component {
             staysActiveInBackground: true,
             playThroughEarpieceAndroid: false,
         });
-        this.recordVideo();
         setInterval(() => {
             this.setState({
               curTime : new Date().toLocaleString()
@@ -288,8 +287,14 @@ class VideoPage extends React.Component {
         if (this.props.VideoReducer.element.isVad) {
             this.renderValidate1()
         }
+<<<<<<< HEAD
         if (this.props.VideoReducer.command_num == 0) {    
             this.recordVideo();        
+=======
+        if (this.props.VideoReducer.command_num == 0) {
+            this.recordVideo()
+            
+>>>>>>> 737a9a9eaae032023c0fc307c18e33cd40c1eaac
             this.setState({
                 disabledTouchableOpacityNext: true,
                 disabledTouchableOpacityBack: true,
